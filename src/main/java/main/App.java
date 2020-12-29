@@ -53,10 +53,11 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         App.stage = stage;
-        scene = new Scene(loadFXML(new App(), "App"), 1100, 800);
+        scene = new Scene(loadFXML(new App(), "App"), 800, 600);
         App.stage.setScene(scene);
         App.stage.getIcons().add(new Image(IConstants.logo));
         App.stage.setTitle(IConstants.applicationTitle);
+        App.stage.setMaximized( true );
         App.stage.show();
     }
 }
