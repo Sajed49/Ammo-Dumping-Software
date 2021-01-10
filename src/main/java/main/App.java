@@ -1,6 +1,7 @@
 package main;
 
 import Constants.IConstants;
+import controllers.GenInfoController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -62,6 +63,8 @@ public class App extends Application {
         App.stage.setTitle(IConstants.applicationTitle);
         App.stage.setMaximized( true );
         App.stage.show();
-        App.scene.getRoot().requestFocus();
+        //App.scene.getRoot().requestFocus();
+
+        setRoot( new GenInfoController(), "GenInfo");
     }
 }

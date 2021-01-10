@@ -1,9 +1,11 @@
 package services;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.util.StringConverter;
 
@@ -13,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class Factory {
+public class FactoryService {
 
     public static ObservableList<Label> convertToLabelFromString(String... args) {
 
@@ -30,7 +32,7 @@ public class Factory {
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
             {
-                datePicker.setPromptText(pattern.toLowerCase());
+                datePicker.setValue( LocalDate.now() );
             }
 
             @Override
@@ -65,7 +67,7 @@ public class Factory {
             final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
             {
-                timePicker.setPromptText(pattern.toLowerCase());
+                timePicker.setValue( LocalTime.now());
             }
 
             @Override
@@ -89,4 +91,19 @@ public class Factory {
         });
     }
 
+
+    public static void getErrorPopUp( String message ) {
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText( message );
+        alert.showAndWait();
+    }
+
+    public static void autoSelectComboBoxValue(JFXComboBox<Label> comboBox, String labelValue) {
+        for (int i=0; i< comboBox.getItems().size(); i++ ) {
+            if ( comboBox.getItems().get(i).getText().equals( labelValue ) ) {
+                comboBox.getSelectionModel().select( i );
+            }
+        }
+    }
 }

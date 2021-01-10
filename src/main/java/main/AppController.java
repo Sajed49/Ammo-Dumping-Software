@@ -14,7 +14,10 @@ import java.util.ResourceBundle;
 public class AppController implements Initializable {
 
     @FXML
-    JFXButton genInfo = new JFXButton();
+    public JFXButton genInfoButton = new JFXButton();
+
+    @FXML
+    public JFXButton timeCalButton = new JFXButton();
 
 
 
@@ -26,12 +29,12 @@ public class AppController implements Initializable {
 
 
     @FXML
-    private void showGenInfo() throws IOException {
+    public void showGenInfo() throws IOException {
         App.setRoot( new GenInfoController(), "GenInfo");
     }
 
     @FXML
-    private void showTimeCal() throws IOException {
+    public void showTimeCal() throws IOException {
         App.setRoot( new TimeCalController(), "TimeCal");
     }
 

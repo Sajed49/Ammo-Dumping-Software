@@ -10,4 +10,6 @@ public interface IConstants {
     String applicationTitle = "Ammo Dumping Software";
 
     String logo = "file:" + "img" + File.separator + "logo.png";
+
+    String missingDataError = "Please fill up all the fields.";
 }
