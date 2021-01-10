@@ -1,0 +1,18 @@
+
+.tab-button {
+    -fx-background-color: #284469;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center-left;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px ;
+    -fx-pref-width: 200;
+    -fx-padding: 10px;
+}
+
+.tab-button:focused,
+.tab-button:selected,
+.tab-button:selected:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: #06d6a0;
+    -fx-border-width: 0 8 0 0;
+}
