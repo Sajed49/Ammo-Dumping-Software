@@ -1,46 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.layout.BorderPane?>
-
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <JFXTabPane stylesheets="@tabbedPane.css" BorderPane.alignment="CENTER">
-         <tabs>
-          <Tab text="General Information">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Time Information">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-            <Tab text="Vehicle Information">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Unit Information">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Time Calculation by Position">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Time Calculation by Unit">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-         </tabs>
-      </JFXTabPane>
-   </center>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
+   <left>
+      <VBox styleClass="vbox" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton buttonType="RAISED" onAction="#showGenInfo" styleClass="tab-button" text="Gen Info" />
+            <JFXButton buttonType="RAISED" onAction="#showTimeCal" styleClass="tab-button" text="Time Cal" />
+            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Vehicle State" />
+            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Unit Info" />
+            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Time Cal by Posn" />
+            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Time Cal by Unit" />
+         </children>
+         <stylesheets>
+            <URL value="@common.css" />
+            <URL value="@tabbedPane.css" />
+         </stylesheets>
+      </VBox>
+   </left>
 </BorderPane>

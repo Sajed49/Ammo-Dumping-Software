@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,7 +23,9 @@ public class App extends Application {
     }
 
     public static void setRoot(Object obj, String fxml) throws IOException {
-        scene.setRoot(loadFXML(obj, fxml));
+
+        BorderPane borderPane = (BorderPane) scene.getRoot();
+        borderPane.setCenter( loadFXML(obj, fxml) );
     }
 
 
@@ -53,11 +56,12 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         App.stage = stage;
-        scene = new Scene(loadFXML(new App(), "App"), 800, 600);
+        scene = new Scene(loadFXML(new App(), "App"), 1000, 700);
         App.stage.setScene(scene);
         App.stage.getIcons().add(new Image(IConstants.logo));
         App.stage.setTitle(IConstants.applicationTitle);
         App.stage.setMaximized( true );
         App.stage.show();
+        App.scene.getRoot().requestFocus();
     }
 }
