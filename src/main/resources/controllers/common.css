@@ -22,3 +22,8 @@
     -fx-font-size: 18px ;
 }
 
+.calculation-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px ;
+}
+

@@ -30,39 +30,39 @@ public class GenInfoController implements Initializable {
 
         initGenInfo();
 
-        if( DataStore.getInstance().getGenInfo() != null ) loadFromDataStore();
+        if (DataStore.getInstance().getGenInfo() != null) loadFromDataStore();
     }
 
-    private void initGenInfo(){
+    private void initGenInfo() {
 
-        ComboService.initComboBox(roadCondition, IComboConstants.road );
-        ComboService.initComboBox(AmmoScale, IComboConstants.ammunitionScale );
-        ComboService.initComboBox(noOfFireUnits, IComboConstants.noOfFireUnit );
+        ComboService.initComboBox(roadCondition, IComboConstants.road);
+        ComboService.initComboBox(AmmoScale, IComboConstants.ammunitionScale);
+        ComboService.initComboBox(noOfFireUnits, IComboConstants.noOfFireUnit);
     }
 
-    private void loadFromDataStore(){
-        FactoryService.autoSelectComboBoxValue( roadCondition, DataStore.getInstance().getGenInfo().getRoadCondition() );
-        FactoryService.autoSelectComboBoxValue( AmmoScale, DataStore.getInstance().getGenInfo().getAmmoScale() );
-        FactoryService.autoSelectComboBoxValue( noOfFireUnits, DataStore.getInstance().getGenInfo().getNoOfFireUnits() );
+    private void loadFromDataStore() {
+        FactoryService.autoSelectComboBoxValue(roadCondition, DataStore.getInstance().getGenInfo().getRoadCondition());
+        FactoryService.autoSelectComboBoxValue(AmmoScale, DataStore.getInstance().getGenInfo().getAmmoScale());
+        FactoryService.autoSelectComboBoxValue(noOfFireUnits, DataStore.getInstance().getGenInfo().getNoOfFireUnits());
     }
 
     @FXML
     private void next() throws IOException {
 
-        if(!checkData()) FactoryService.getErrorPopUp( IConstants.missingDataError );
+        if (!checkData()) FactoryService.getErrorPopUp(IConstants.missingDataError);
         else {
 
-            GenInfo genInfo = new GenInfo( roadCondition.getValue().getText().trim(),
+            GenInfo genInfo = new GenInfo(roadCondition.getValue().getText().trim(),
                     AmmoScale.getValue().getText().trim(), noOfFireUnits.getValue().getText().trim());
 
             // Singleton class
-            DataStore.getInstance().setGenInfo( genInfo );
+            DataStore.getInstance().setGenInfo(genInfo);
 
-            App.setRoot( new TimeCalController(), "TimeCal");
+            App.setRoot(new TimeCalController(), "TimeCal");
         }
     }
 
-    private boolean checkData(){
+    private boolean checkData() {
 
         boolean valid = true;
 

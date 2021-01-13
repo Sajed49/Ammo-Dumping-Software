@@ -26,7 +26,7 @@ public class App extends Application {
     public static void setRoot(Object obj, String fxml) throws IOException {
 
         BorderPane borderPane = (BorderPane) scene.getRoot();
-        borderPane.setCenter( loadFXML(obj, fxml) );
+        borderPane.setCenter(loadFXML(obj, fxml));
     }
 
 
@@ -61,10 +61,10 @@ public class App extends Application {
         App.stage.setScene(scene);
         App.stage.getIcons().add(new Image(IConstants.logo));
         App.stage.setTitle(IConstants.applicationTitle);
-        App.stage.setMaximized( true );
+        App.stage.setMaximized(true);
         App.stage.show();
         //App.scene.getRoot().requestFocus();
 
-        setRoot( new GenInfoController(), "GenInfo");
+        setRoot(new GenInfoController(), "GenInfo");
     }
 }

@@ -3,6 +3,7 @@ package main;
 import com.jfoenix.controls.JFXButton;
 import controllers.GenInfoController;
 import controllers.TimeCalController;
+import controllers.VehicleStateController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -20,7 +21,6 @@ public class AppController implements Initializable {
     public JFXButton timeCalButton = new JFXButton();
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -30,16 +30,18 @@ public class AppController implements Initializable {
 
     @FXML
     public void showGenInfo() throws IOException {
-        App.setRoot( new GenInfoController(), "GenInfo");
+        App.setRoot(new GenInfoController(), "GenInfo");
     }
 
     @FXML
     public void showTimeCal() throws IOException {
-        App.setRoot( new TimeCalController(), "TimeCal");
+        App.setRoot(new TimeCalController(), "TimeCal");
     }
 
-
-
+    @FXML
+    public void showVehicleState() throws IOException {
+        App.setRoot(new VehicleStateController(), "VehicleState");
+    }
 
     @FXML
     private void saveGenInfo() {

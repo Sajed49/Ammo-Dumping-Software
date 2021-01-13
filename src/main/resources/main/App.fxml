@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import java.net.URL?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import java.net.URL?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
-   <left>
-      <VBox styleClass="vbox" BorderPane.alignment="CENTER">
-         <children>
-            <JFXButton fx:id="genInfoButton" buttonType="RAISED" onAction="#showGenInfo" styleClass="tab-button" text="Gen Info" />
-            <JFXButton fx:id="timeCalButton" buttonType="RAISED" onAction="#showTimeCal" styleClass="tab-button" text="Time Cal" />
-            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Vehicle State" />
-            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Unit Info" />
-            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Time Cal by Posn" />
-            <JFXButton buttonType="RAISED" styleClass="tab-button" text="Time Cal by Unit" />
-         </children>
-         <stylesheets>
-            <URL value="@common.css" />
-            <URL value="@tabbedPane.css" />
-         </stylesheets>
-      </VBox>
-   </left>
+    <left>
+        <VBox styleClass="vbox" BorderPane.alignment="CENTER">
+            <children>
+                <JFXButton fx:id="genInfoButton" buttonType="RAISED" onAction="#showGenInfo" styleClass="tab-button" text="Gen Info" />
+                <JFXButton fx:id="timeCalButton" buttonType="RAISED" onAction="#showTimeCal" styleClass="tab-button" text="Time Cal" />
+                <JFXButton buttonType="RAISED" onAction="#showVehicleState" styleClass="tab-button" text="Vehicle State" />
+                <JFXButton buttonType="RAISED" styleClass="tab-button" text="Unit Info" />
+                <JFXButton buttonType="RAISED" styleClass="tab-button" text="Time Cal by Posn" />
+                <JFXButton buttonType="RAISED" styleClass="tab-button" text="Time Cal by Unit" />
+            </children>
+            <stylesheets>
+                <URL value="@common.css" />
+                <URL value="@tabbedPane.css" />
+            </stylesheets>
+        </VBox>
+    </left>
 </BorderPane>
