@@ -7,10 +7,15 @@ import com.jfoenix.controls.JFXTimePicker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import main.App;
+import models.VehicleState;
+import result.DataStore;
 import services.ComboService;
 import services.DateService;
+import services.FactoryService;
 import services.TimeService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -61,6 +66,11 @@ public class VehicleStateController implements Initializable {
         intiAllDateAndTime();
         initComboBoxes();
 
+        if (DataStore.getInstance().getVehicleState() != null) {
+            loadFromDataStore();
+        }
+
+
     }
 
     private void intiAllDateAndTime() {
@@ -100,5 +110,37 @@ public class VehicleStateController implements Initializable {
                 Integer.parseInt( availableVehicleLine1.getValue().getText())
                 + Integer.parseInt( availableVehicleLine2.getValue().getText())
                 + Integer.parseInt( availableVehicleLine3.getValue().getText())));
+    }
+
+
+    @FXML
+    private void next() throws IOException {
+
+        calculate();
+
+        VehicleState vehicleState = new VehicleState();
+        vehicleState.setAvailableDate( availableDateLine1, availableDateLine2, availableDateLine3);
+        vehicleState.setAvailableTime( availableTimeLine1, availableTimeLine2, availableTimeLine3);
+        vehicleState.setAvailableVehicle(
+                totalAvailableVehicles1, totalAvailableVehicles2, totalAvailableVehicles3 );
+        vehicleState.setVehicleToVehicleDistance( vehicleToVehicleDistance.getValue().getText() );
+        vehicleState.setDensity( density.getValue().getText() );
+
+        DataStore.getInstance().setVehicleState( vehicleState );
+
+        App.setRoot( new UnitInfoController(), "UnitInfo");
+    }
+
+
+    private void loadFromDataStore() {
+
+        DataStore.getInstance().getVehicleState().loadAvailableDate( availableDateLine1, availableDateLine2, availableDateLine3);
+        DataStore.getInstance().getVehicleState().loadAvailableTime( availableTimeLine1, availableTimeLine2, availableTimeLine3);
+        DataStore.getInstance().getVehicleState().loadTotalAvailableVehicles(
+                availableVehicleLine1, availableVehicleLine2, availableVehicleLine3);
+
+        FactoryService.autoSelectComboBoxValue(
+                vehicleToVehicleDistance, DataStore.getInstance().getVehicleState().getVehicleToVehicleDistance() );
+        FactoryService.autoSelectComboBoxValue( density, DataStore.getInstance().getVehicleState().getDensity() );
     }
 }

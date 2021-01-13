@@ -3,6 +3,7 @@ package main;
 import com.jfoenix.controls.JFXButton;
 import controllers.GenInfoController;
 import controllers.TimeCalController;
+import controllers.UnitInfoController;
 import controllers.VehicleStateController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,7 +45,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    private void saveGenInfo() {
-
+    public void showUnitInfo() throws IOException {
+        App.setRoot(new UnitInfoController(), "UnitInfo");
     }
 }
