@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
 
 public class TimeService {
 
-    static final String pattern = "HH:mm";
-    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+    public static final String pattern = "HH:mm";
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
     public static long findTimeDiffInMinutes(JFXTimePicker from, JFXTimePicker to) {
         return Duration.between(from.getValue(), to.getValue()).toMinutes();
@@ -62,4 +62,5 @@ public class TimeService {
             }
         });
     }
+
 }

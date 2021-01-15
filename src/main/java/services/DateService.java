@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 
 public class DateService {
 
-    static final String pattern = "dd-MM-yyyy";
-    static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+    public static final String pattern = "dd-MM-yyyy";
+    public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public static long findDays(JFXDatePicker from, JFXDatePicker to) {
 

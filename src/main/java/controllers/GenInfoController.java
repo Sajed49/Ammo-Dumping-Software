@@ -18,12 +18,19 @@ import java.util.ResourceBundle;
 
 public class GenInfoController implements Initializable {
 
+
+    @FXML
+    JFXComboBox<Label> loadingPoint = new JFXComboBox<>();
     @FXML
     JFXComboBox<Label> roadCondition = new JFXComboBox<>();
     @FXML
-    JFXComboBox<Label> AmmoScale = new JFXComboBox<>();
+    JFXComboBox<Label> typeOfStore = new JFXComboBox<>();
     @FXML
-    JFXComboBox<Label> noOfFireUnits = new JFXComboBox<>();
+    JFXComboBox<Label> ammoScale = new JFXComboBox<>();
+    @FXML
+    JFXComboBox<Label> noOfUnit = new JFXComboBox<>();
+    @FXML
+    JFXComboBox<Label> limitations = new JFXComboBox<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,15 +42,21 @@ public class GenInfoController implements Initializable {
 
     private void initGenInfo() {
 
+        ComboService.initComboBox(loadingPoint, IComboConstants.loadingPoint);
         ComboService.initComboBox(roadCondition, IComboConstants.road);
-        ComboService.initComboBox(AmmoScale, IComboConstants.ammunitionScale);
-        ComboService.initComboBox(noOfFireUnits, IComboConstants.noOfFireUnit);
+        ComboService.initComboBox(typeOfStore, IComboConstants.typeOfStore);
+        ComboService.initComboBox(ammoScale, IComboConstants.ammunitionScale);
+        ComboService.initComboBox(noOfUnit, IComboConstants.noOfUnit);
+        ComboService.initComboBox(limitations, IComboConstants.limitations);
     }
 
     private void loadFromDataStore() {
+        FactoryService.autoSelectComboBoxValue(loadingPoint, DataStore.getInstance().getGenInfo().getLoadingPoint());
         FactoryService.autoSelectComboBoxValue(roadCondition, DataStore.getInstance().getGenInfo().getRoadCondition());
-        FactoryService.autoSelectComboBoxValue(AmmoScale, DataStore.getInstance().getGenInfo().getAmmoScale());
-        FactoryService.autoSelectComboBoxValue(noOfFireUnits, DataStore.getInstance().getGenInfo().getNoOfFireUnits());
+        FactoryService.autoSelectComboBoxValue(typeOfStore, DataStore.getInstance().getGenInfo().getTypeOfStore());
+        FactoryService.autoSelectComboBoxValue(ammoScale, DataStore.getInstance().getGenInfo().getAmmoScale());
+        FactoryService.autoSelectComboBoxValue(noOfUnit, DataStore.getInstance().getGenInfo().getNoOfFireUnits());
+        FactoryService.autoSelectComboBoxValue(limitations, DataStore.getInstance().getGenInfo().getLimitations());
     }
 
     @FXML
@@ -52,8 +65,9 @@ public class GenInfoController implements Initializable {
         if (!checkData()) FactoryService.getErrorPopUp(IConstants.missingDataError);
         else {
 
-            GenInfo genInfo = new GenInfo(roadCondition.getValue().getText().trim(),
-                    AmmoScale.getValue().getText().trim(), noOfFireUnits.getValue().getText().trim());
+            GenInfo genInfo = new GenInfo(loadingPoint.getValue().getText(), roadCondition.getValue().getText().trim(),
+                    typeOfStore.getValue().getText(), ammoScale.getValue().getText().trim(),
+                    noOfUnit.getValue().getText().trim(), limitations.getValue().getText() );
 
             // Singleton class
             DataStore.getInstance().setGenInfo(genInfo);
@@ -67,8 +81,8 @@ public class GenInfoController implements Initializable {
         boolean valid = true;
 
         if (roadCondition.getValue() == null || roadCondition.getValue().getText().trim().equals("")) valid = false;
-        if (AmmoScale.getValue() == null || AmmoScale.getValue().getText().trim().equals("")) valid = false;
-        if (noOfFireUnits.getValue() == null || noOfFireUnits.getValue().getText().trim().equals("")) valid = false;
+        if (ammoScale.getValue() == null || ammoScale.getValue().getText().trim().equals("")) valid = false;
+        if (noOfUnit.getValue() == null || noOfUnit.getValue().getText().trim().equals("")) valid = false;
 
         return valid;
 

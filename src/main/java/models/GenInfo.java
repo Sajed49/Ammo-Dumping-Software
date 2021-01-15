@@ -6,7 +6,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GenInfo {
-    String roadCondition;
-    String AmmoScale;
-    String noOfFireUnits;
+    private String loadingPoint;
+    private String roadCondition;
+    private String typeOfStore;
+    private String AmmoScale;
+    private String noOfFireUnits;
+    private String limitations;
 }

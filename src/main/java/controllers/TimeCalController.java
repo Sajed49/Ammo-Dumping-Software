@@ -92,46 +92,50 @@ public class TimeCalController implements Initializable {
     @FXML
     private void calculate() {
 
-        long dayTime = TimeService.findTimeDiffInMinutes(firstLight, lastLight);
-        dayTimeAvailable.setText(TimeService.formatToDisplay(dayTime));
-        nightTimeAvailable.setText(TimeService.formatToDisplay((24 * 60) - dayTime));
-
-        long dumpingDayTime = 0, dumpingNightTime = 0;
-        long totalDumpingTimeInADay = TimeService.findTimeDiffInMinutes(dumpingStartTime, dumpingEndTime);
-
-        long temp1 = TimeService.findTimeDiffInMinutes(firstLight, dumpingStartTime);
-        long temp2 = TimeService.findTimeDiffInMinutes(firstLight, dumpingEndTime);
-        long temp3 = TimeService.findTimeDiffInMinutes(lastLight, dumpingEndTime);
-        long temp4 = TimeService.findTimeDiffInMinutes(lastLight, dumpingStartTime);
-        if (temp1 < 0) {
-
-            if (temp2 < 0) dumpingNightTime += totalDumpingTimeInADay;
-            else if (temp3 < 0) {
-                dumpingDayTime += temp2;
-                dumpingNightTime += (-temp1);
-            } else {
-                dumpingDayTime += dayTime;
-                dumpingNightTime += ((-temp1) + temp3);
-            }
-        } else if (temp4 < 0) {
-
-            if (temp3 < 0) {
-                dumpingDayTime += totalDumpingTimeInADay;
-            } else {
-                dumpingDayTime += (-temp4);
-                dumpingNightTime += temp3;
-            }
-        } else {
-            dumpingNightTime += totalDumpingTimeInADay;
-        }
-
+        long totalDayLightInADay = TimeService.findTimeDiffInMinutes(firstLight, lastLight);
         long days = DateService.findDays(dumpingStartDate, dumpingEndDate);
 
+        dayTimeAvailable.setText(TimeService.formatToDisplay(totalDayLightInADay));
+        nightTimeAvailable.setText(TimeService.formatToDisplay((24 * 60) - totalDayLightInADay));
 
-        totalDayTimeAvailable.setText(TimeService.formatToDisplay(days * dumpingDayTime));
-        totalNightTimeAvailable.setText(TimeService.formatToDisplay(days * dumpingNightTime));
+        long dumpingDayTime = 0L, dumpingNightTime1 = 0L, dumpingNightTime2 = 0L;
+        long totalDumpingTimeInADay = TimeService.findTimeDiffInMinutes(dumpingStartTime, dumpingEndTime);
+        long darkPhase1 = TimeService.findTimeDiffInMinutes(firstLight, dumpingStartTime);
+        long lightPhase1 = TimeService.findTimeDiffInMinutes(firstLight, dumpingEndTime);
+        long darkPhase2 = TimeService.findTimeDiffInMinutes(lastLight, dumpingEndTime);
+        long darkPhase2Reduction = TimeService.findTimeDiffInMinutes(lastLight, dumpingStartTime);
 
-        totalTimeAvailable.setText(TimeService.formatToDisplay(days * totalDumpingTimeInADay));
+        if (darkPhase1 < 0) {
+
+            if (lightPhase1 < 0) dumpingNightTime1 = totalDumpingTimeInADay;
+            else if (darkPhase2 < 0) {
+                dumpingDayTime = lightPhase1;
+                dumpingNightTime1 = (-darkPhase1);
+            } else {
+                dumpingDayTime = totalDayLightInADay;
+                dumpingNightTime1 = (-darkPhase1);
+                dumpingNightTime2 = darkPhase2;
+            }
+        } else if (darkPhase2Reduction < 0) {
+            if (darkPhase2 < 0) dumpingDayTime += totalDumpingTimeInADay;
+            else {
+                dumpingDayTime = (-darkPhase2Reduction);
+                dumpingNightTime2 = darkPhase2;
+            }
+        } else {
+            dumpingNightTime2 = totalDumpingTimeInADay;
+        }
+
+        long totalDumpingDayTime = days * dumpingDayTime;
+        long totalDumpingNightTime = days * (dumpingNightTime1 + dumpingNightTime2);
+
+        totalDumpingNightTime -= deductContingencyTimeInNight(dumpingNightTime1, dumpingDayTime, dumpingNightTime2);
+        totalDumpingDayTime -= deductContingencyTimeInDay(dumpingNightTime1, dumpingDayTime, dumpingNightTime2);
+
+        totalDayTimeAvailable.setText(TimeService.formatToDisplay(totalDumpingDayTime));
+        totalNightTimeAvailable.setText(TimeService.formatToDisplay(totalDumpingNightTime));
+
+        totalTimeAvailable.setText(TimeService.formatToDisplay(totalDumpingDayTime + totalDumpingNightTime));
     }
 
 
@@ -147,7 +151,6 @@ public class TimeCalController implements Initializable {
                 dayTimeAvailable.getText(), nightTimeAvailable.getText(), totalDayTimeAvailable.getText(),
                 totalNightTimeAvailable.getText(), totalTimeAvailable.getText());
 
-        // Singleton class
         DataStore.getInstance().setTimeCal(timeCal);
 
         App.setRoot(new VehicleStateController(), "VehicleState");
@@ -171,6 +174,47 @@ public class TimeCalController implements Initializable {
         FactoryService.autoSelectComboBoxValue(timeReqToLoad, DataStore.getInstance().getTimeCal().getTimeReqToLoad());
         FactoryService.autoSelectComboBoxValue(contingencyTime, DataStore.getInstance().getTimeCal().getContingencyTime());
     }
+
+
+    private Long deductContingencyTimeInNight(long nightTime1, long dayLightTime, long nightTime2) {
+
+        long contingency = Integer.parseInt(contingencyTime.getValue().getText()) * 60L;
+        long result = 0;
+
+        if (contingency > 0) {
+            result += Math.min(contingency, nightTime2);
+            contingency -= Math.min(contingency, nightTime2);
+        }
+
+        if (contingency > 0) {
+            contingency -= Math.min(contingency, dayLightTime);
+        }
+
+        if (contingency > 0) {
+            result += Math.min(contingency, nightTime1);
+        }
+
+        return result;
+    }
+
+
+    private Long deductContingencyTimeInDay(long nightTime1, long dayLightTime, long nightTime2) {
+
+        long contingency = Integer.parseInt(contingencyTime.getValue().getText()) * 60L;
+        long result = 0;
+
+        if (contingency > 0) {
+            contingency -= Math.min(contingency, nightTime2);
+        }
+
+        if (contingency > 0) {
+            result += Math.min(contingency, dayLightTime);
+            contingency -= Math.min(contingency, dayLightTime);
+        }
+
+        return result;
+    }
+
 
 }
 

@@ -25,7 +25,7 @@ public class VehicleState {
     private String density;
 
 
-    public void setAvailableDate(JFXDatePicker ... dates) {
+    public void setAvailableDate(JFXDatePicker... dates) {
         availableDate = Arrays.stream(dates).map(DateService::display).collect(Collectors.toList());
     }
 
@@ -33,28 +33,28 @@ public class VehicleState {
         availableTime = Arrays.stream(times).map(TimeService::display).collect(Collectors.toList());
     }
 
-    public void setAvailableVehicle(Label ... labels ) {
+    public void setAvailableVehicle(Label... labels) {
         availableVehicle = Arrays.stream(labels).map(Labeled::getText).collect(Collectors.toList());
     }
 
 
-    public void loadAvailableDate(JFXDatePicker ... dates) {
+    public void loadAvailableDate(JFXDatePicker... dates) {
 
         for (int i = 0; i < dates.length; i++) {
-            DateService.setDate( dates[i], availableDate.get(i));
+            DateService.setDate(dates[i], availableDate.get(i));
         }
     }
 
-    public void loadAvailableTime(JFXTimePicker... times){
+    public void loadAvailableTime(JFXTimePicker... times) {
         for (int i = 0; i < times.length; i++) {
-            TimeService.setTime( times[i], availableTime.get(i));
+            TimeService.setTime(times[i], availableTime.get(i));
         }
     }
 
     @SafeVarargs
     public final void loadTotalAvailableVehicles(JFXComboBox<Label>... totalAvailableVehicles) {
         for (int i = 0; i < totalAvailableVehicles.length; i++) {
-            FactoryService.autoSelectComboBoxValue( totalAvailableVehicles[i], availableVehicle.get(i));
+            FactoryService.autoSelectComboBoxValue(totalAvailableVehicles[i], availableVehicle.get(i));
         }
     }
 }
