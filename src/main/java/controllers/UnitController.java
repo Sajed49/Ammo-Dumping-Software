@@ -18,6 +18,11 @@ public class UnitController implements Initializable {
 
     @FXML
     Label ser = new Label();
+    @FXML
+    Label eqptName = new Label("Eqpt Name");
+    @FXML
+    Label ammoLabel = new Label("Ammo (RPG)");
+
 
     @FXML
     JFXComboBox<Label> unitName = new JFXComboBox<>();
@@ -86,6 +91,16 @@ public class UnitController implements Initializable {
 
     public void setSer(Integer ser) {
         this.ser.setText(String.valueOf(ser));
+    }
+
+    public void setEqptLabelName(String typeOfStore) {
+
+        if (typeOfStore.equals(IComboConstants.typeOfStore[0])) this.eqptName.setText("Eqpt Name");
+        else this.eqptName.setText("Type of Store");
+    }
+
+    public void setAmmoLabel(String ammunitionScale) {
+        this.ammoLabel.setText("Ammo ("+ammunitionScale+")");
     }
 
     private void initPosnName() {

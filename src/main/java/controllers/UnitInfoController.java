@@ -1,5 +1,6 @@
 package controllers;
 
+import Constants.IComboConstants;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,17 +20,26 @@ public class UnitInfoController implements Initializable {
 
     ArrayList<UnitController> unitControllers = new ArrayList<>();
     Integer totalUnits = 0;
+    String typeOfStore = IComboConstants.typeOfStore[0];
+    String ammunitionScale = IComboConstants.ammunitionScale[0];
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (DataStore.getInstance().getGenInfo() != null)
+        if (DataStore.getInstance().getGenInfo() != null){
+
             totalUnits = Integer.valueOf(DataStore.getInstance().getGenInfo().getNoOfFireUnits());
+            typeOfStore = DataStore.getInstance().getGenInfo().getTypeOfStore();
+            ammunitionScale = DataStore.getInstance().getGenInfo().getAmmoScale();
+        }
+
 
         try {
             for (int i = 0; i < totalUnits; i++) {
                 addUnit();
                 unitControllers.get(i).setSer(i + 1);
+                unitControllers.get(i).setEqptLabelName( typeOfStore );
+                unitControllers.get(i).setAmmoLabel( ammunitionScale );
             }
         } catch (IOException e) {
             e.printStackTrace();
