@@ -18,4 +18,13 @@ public class ComboService {
         comboBox.getItems().clear();
         comboBox.getItems().addAll(FactoryService.convertToLabelFromString(values));
     }
+
+    public static void autoSelectComboBoxValue(JFXComboBox<Label> comboBox, String labelValue) {
+        for (int i = 0; i < comboBox.getItems().size(); i++) {
+            if (comboBox.getItems().get(i).getText().equals(labelValue)) {
+                comboBox.getSelectionModel().select(i);
+                break;
+            }
+        }
+    }
 }

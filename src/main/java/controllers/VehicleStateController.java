@@ -13,7 +13,6 @@ import models.VehicleState;
 import result.DataStore;
 import services.ComboService;
 import services.DateService;
-import services.FactoryService;
 import services.TimeService;
 
 import java.io.IOException;
@@ -149,9 +148,9 @@ public class VehicleStateController implements Initializable {
         DataStore.getInstance().getVehicleState().loadTotalAvailableVehicles(
                 availableVehicleLine1, availableVehicleLine2, availableVehicleLine3);
 
-        FactoryService.autoSelectComboBoxValue(
+        ComboService.autoSelectComboBoxValue(
                 vehicleToVehicleDistance, DataStore.getInstance().getVehicleState().getVehicleToVehicleDistance());
-        FactoryService.autoSelectComboBoxValue(density, DataStore.getInstance().getVehicleState().getDensity());
+        ComboService.autoSelectComboBoxValue(density, DataStore.getInstance().getVehicleState().getDensity());
     }
 }
 

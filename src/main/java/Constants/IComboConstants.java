@@ -1,6 +1,8 @@
 package Constants;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public interface IComboConstants {
@@ -29,7 +31,7 @@ public interface IComboConstants {
             "7 FD Regiment", "8 FD Regiment", "9 FD Regiment"};
     String[] gunType = {"105 mm How M-56", "122 mm How T-54"};
     String[] noOfGuns = {"6", "12", "18"};
-    String[] posCount = Arrays.stream(IntStream.range(1, 4).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
+    String[] posCount = Arrays.stream(IntStream.range(1, 4).map(i -> 1 + (4 - 1 - i)).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
 
     String[] posnName = {"Main Posn", "Contg posn 1", "Contg posn 2"};
     String[] priority = Arrays.stream(IntStream.range(1, 4).toArray()).mapToObj(String::valueOf).toArray(String[]::new);

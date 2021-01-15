@@ -51,12 +51,12 @@ public class GenInfoController implements Initializable {
     }
 
     private void loadFromDataStore() {
-        FactoryService.autoSelectComboBoxValue(loadingPoint, DataStore.getInstance().getGenInfo().getLoadingPoint());
-        FactoryService.autoSelectComboBoxValue(roadCondition, DataStore.getInstance().getGenInfo().getRoadCondition());
-        FactoryService.autoSelectComboBoxValue(typeOfStore, DataStore.getInstance().getGenInfo().getTypeOfStore());
-        FactoryService.autoSelectComboBoxValue(ammoScale, DataStore.getInstance().getGenInfo().getAmmoScale());
-        FactoryService.autoSelectComboBoxValue(noOfUnit, DataStore.getInstance().getGenInfo().getNoOfFireUnits());
-        FactoryService.autoSelectComboBoxValue(limitations, DataStore.getInstance().getGenInfo().getLimitations());
+        ComboService.autoSelectComboBoxValue(loadingPoint, DataStore.getInstance().getGenInfo().getLoadingPoint());
+        ComboService.autoSelectComboBoxValue(roadCondition, DataStore.getInstance().getGenInfo().getRoadCondition());
+        ComboService.autoSelectComboBoxValue(typeOfStore, DataStore.getInstance().getGenInfo().getTypeOfStore());
+        ComboService.autoSelectComboBoxValue(ammoScale, DataStore.getInstance().getGenInfo().getAmmoScale());
+        ComboService.autoSelectComboBoxValue(noOfUnit, DataStore.getInstance().getGenInfo().getNoOfFireUnits());
+        ComboService.autoSelectComboBoxValue(limitations, DataStore.getInstance().getGenInfo().getLimitations());
     }
 
     @FXML

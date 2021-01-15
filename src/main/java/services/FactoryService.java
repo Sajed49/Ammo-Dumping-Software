@@ -26,11 +26,4 @@ public class FactoryService {
         alert.showAndWait();
     }
 
-    public static void autoSelectComboBoxValue(JFXComboBox<Label> comboBox, String labelValue) {
-        for (int i = 0; i < comboBox.getItems().size(); i++) {
-            if (comboBox.getItems().get(i).getText().equals(labelValue)) {
-                comboBox.getSelectionModel().select(i);
-            }
-        }
-    }
 }

@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="10.0" minWidth="1500.0" stylesheets="@common.css" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UnitController">
+<GridPane hgap="10.0" minWidth="1700.0" stylesheets="@common.css" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UnitController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="200.0" />
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="20.0" prefWidth="120.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="20.0" prefWidth="180.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="250.0" />
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />

@@ -12,7 +12,6 @@ import models.TimeCal;
 import result.DataStore;
 import services.ComboService;
 import services.DateService;
-import services.FactoryService;
 import services.TimeService;
 
 import java.io.IOException;
@@ -167,12 +166,12 @@ public class TimeCalController implements Initializable {
         DateService.setDate(dumpingStartDate, DataStore.getInstance().getTimeCal().getDumpingStartDate());
         DateService.setDate(dumpingEndDate, DataStore.getInstance().getTimeCal().getDumpingEndDate());
 
-        FactoryService.autoSelectComboBoxValue(shortHaltTime, DataStore.getInstance().getTimeCal().getShortHaltTime());
-        FactoryService.autoSelectComboBoxValue(longHaltTime, DataStore.getInstance().getTimeCal().getLongHaltTime());
-        FactoryService.autoSelectComboBoxValue(shortHaltAfterHour, DataStore.getInstance().getTimeCal().getShortHaltAfterHour());
-        FactoryService.autoSelectComboBoxValue(longHaltAfterHour, DataStore.getInstance().getTimeCal().getLongHaltAfterHour());
-        FactoryService.autoSelectComboBoxValue(timeReqToLoad, DataStore.getInstance().getTimeCal().getTimeReqToLoad());
-        FactoryService.autoSelectComboBoxValue(contingencyTime, DataStore.getInstance().getTimeCal().getContingencyTime());
+        ComboService.autoSelectComboBoxValue(shortHaltTime, DataStore.getInstance().getTimeCal().getShortHaltTime());
+        ComboService.autoSelectComboBoxValue(longHaltTime, DataStore.getInstance().getTimeCal().getLongHaltTime());
+        ComboService.autoSelectComboBoxValue(shortHaltAfterHour, DataStore.getInstance().getTimeCal().getShortHaltAfterHour());
+        ComboService.autoSelectComboBoxValue(longHaltAfterHour, DataStore.getInstance().getTimeCal().getLongHaltAfterHour());
+        ComboService.autoSelectComboBoxValue(timeReqToLoad, DataStore.getInstance().getTimeCal().getTimeReqToLoad());
+        ComboService.autoSelectComboBoxValue(contingencyTime, DataStore.getInstance().getTimeCal().getContingencyTime());
     }
 
 
@@ -209,7 +208,6 @@ public class TimeCalController implements Initializable {
 
         if (contingency > 0) {
             result += Math.min(contingency, dayLightTime);
-            contingency -= Math.min(contingency, dayLightTime);
         }
 
         return result;

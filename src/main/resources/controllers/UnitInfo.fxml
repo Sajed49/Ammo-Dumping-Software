@@ -15,10 +15,10 @@
             <children>
                 <VBox fx:id="vBox" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                     <children>
-                        <GridPane gridLinesVisible="true" minWidth="1500.0">
+                        <GridPane gridLinesVisible="true" minWidth="1700.0">
                             <columnConstraints>
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="200.0" />
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="120.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="180.0" />
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="150.0" prefWidth="250.0" />
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />

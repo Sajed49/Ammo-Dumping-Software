@@ -1,7 +1,6 @@
 package controllers;
 
 import Constants.IComboConstants;
-import Constants.IConstants;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -70,6 +69,11 @@ public class UnitController implements Initializable {
         initPriority();
         initDistance();
         initAmmo();
+
+        posCount.setOnAction(e -> {
+            int index = posCount.getSelectionModel().getSelectedIndex();
+            determineActiveStatus(index);
+        });
     }
 
     private void initComboBoxes() {
@@ -127,5 +131,38 @@ public class UnitController implements Initializable {
         for (JFXTextField textField : ammo) {
             TextFieldService.initTextField(textField, "0");
         }
+    }
+
+    private void determineActiveStatus(int index){
+
+        enable(0);
+
+        if( index == 0 ) {
+            enable(1);
+            enable(2);
+        }
+        else if( index == 1) {
+            enable(1);
+            disable(2);
+        }
+        else {
+            disable(1);
+            disable(2);
+        }
+    }
+
+    private void disable(int index){
+
+        posnName.get(index).setDisable( true );
+        priority.get(index).setDisable( true );
+        distance.get(index).setDisable( true );
+        ammo.get(index).setDisable( true );
+    }
+
+    private void enable(int index) {
+        posnName.get(index).setDisable( false );
+        priority.get(index).setDisable( false );
+        distance.get(index).setDisable( false );
+        ammo.get(index).setDisable( false );
     }
 }

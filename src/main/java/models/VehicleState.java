@@ -6,8 +6,8 @@ import com.jfoenix.controls.JFXTimePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import lombok.Data;
+import services.ComboService;
 import services.DateService;
-import services.FactoryService;
 import services.TimeService;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class VehicleState {
     @SafeVarargs
     public final void loadTotalAvailableVehicles(JFXComboBox<Label>... totalAvailableVehicles) {
         for (int i = 0; i < totalAvailableVehicles.length; i++) {
-            FactoryService.autoSelectComboBoxValue(totalAvailableVehicles[i], availableVehicle.get(i));
+            ComboService.autoSelectComboBoxValue(totalAvailableVehicles[i], availableVehicle.get(i));
         }
     }
 }
