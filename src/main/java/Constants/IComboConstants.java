@@ -30,6 +30,8 @@ public interface IComboConstants {
     String[] gunType = {"105 mm How M-56", "122 mm How T-54"};
     String[] noOfGuns = {"6", "12", "18"};
     String[] posCount = Arrays.stream(IntStream.range(1, 4).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
-    String[] ammoCount = Arrays.stream(IntStream.range(1, 51).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
+
+    String[] posnName = {"Main Posn", "Contg posn 1", "Contg posn 2"};
+    String[] priority = Arrays.stream(IntStream.range(1, 4).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
 
 }

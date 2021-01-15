@@ -12,4 +12,10 @@ public class ComboService {
         comboBox.getItems().addAll(FactoryService.convertToLabelFromString(values));
         comboBox.getSelectionModel().selectFirst();
     }
+
+    public static void initComboBoxWithoutSelection(JFXComboBox<Label> comboBox, String[] values) {
+
+        comboBox.getItems().clear();
+        comboBox.getItems().addAll(FactoryService.convertToLabelFromString(values));
+    }
 }
