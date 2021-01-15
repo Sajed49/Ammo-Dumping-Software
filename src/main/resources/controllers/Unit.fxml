@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane hgap="10.0" minWidth="1700.0" stylesheets="@common.css" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UnitController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="200.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="20.0" prefWidth="180.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="250.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label styleClass="custom-label" text="Priority" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <Label styleClass="custom-label" text="Distance (km)" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <Label fx:id="ammoLabel" styleClass="custom-label" text="Ammo" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+        <JFXComboBox fx:id="unitName" minWidth="250.0" GridPane.columnIndex="2" />
+        <JFXComboBox fx:id="gunType" minWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <JFXComboBox fx:id="noOfGuns" minWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label fx:id="ser" styleClass="custom-label" text="Label" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+        <Label styleClass="custom-label" text="Posn Name" GridPane.columnIndex="3" />
+        <Label styleClass="custom-label" text="Unit ID" GridPane.columnIndex="1" />
+        <Label fx:id="eqptName" styleClass="custom-label" text="Eqpt Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label styleClass="custom-label" text="No of Guns" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label styleClass="custom-label" text="Total no of Posn" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXComboBox fx:id="posCount" minWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <JFXTextField fx:id="posnName1" GridPane.columnIndex="4" />
+      <JFXComboBox fx:id="priority1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <JFXTextField fx:id="distance1" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <JFXTextField fx:id="ammo1" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <JFXTextField fx:id="posnName2" GridPane.columnIndex="5" />
+      <JFXComboBox fx:id="priority2" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <JFXTextField fx:id="distance2" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+      <JFXTextField fx:id="ammo2" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+      <JFXTextField fx:id="posnName3" GridPane.columnIndex="6" />
+      <JFXComboBox fx:id="priority3" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+      <JFXTextField fx:id="distance3" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+      <JFXTextField fx:id="ammo3" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+    </children>
+    <padding>
+        <Insets bottom="10.0" top="20.0" />
+    </padding>
+</GridPane>

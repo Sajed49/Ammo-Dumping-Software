@@ -18,57 +18,71 @@ import java.util.ResourceBundle;
 
 public class GenInfoController implements Initializable {
 
+
+    @FXML
+    JFXComboBox<Label> loadingPoint = new JFXComboBox<>();
     @FXML
     JFXComboBox<Label> roadCondition = new JFXComboBox<>();
     @FXML
-    JFXComboBox<Label> AmmoScale = new JFXComboBox<>();
+    JFXComboBox<Label> typeOfStore = new JFXComboBox<>();
     @FXML
-    JFXComboBox<Label> noOfFireUnits = new JFXComboBox<>();
+    JFXComboBox<Label> ammoScale = new JFXComboBox<>();
+    @FXML
+    JFXComboBox<Label> noOfUnit = new JFXComboBox<>();
+    @FXML
+    JFXComboBox<Label> limitations = new JFXComboBox<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         initGenInfo();
 
-        if( DataStore.getInstance().getGenInfo() != null ) loadFromDataStore();
+        if (DataStore.getInstance().getGenInfo() != null) loadFromDataStore();
     }
 
-    private void initGenInfo(){
+    private void initGenInfo() {
 
-        ComboService.initComboBox(roadCondition, IComboConstants.road );
-        ComboService.initComboBox(AmmoScale, IComboConstants.ammunitionScale );
-        ComboService.initComboBox(noOfFireUnits, IComboConstants.noOfFireUnit );
+        ComboService.initComboBox(loadingPoint, IComboConstants.loadingPoint);
+        ComboService.initComboBox(roadCondition, IComboConstants.road);
+        ComboService.initComboBox(typeOfStore, IComboConstants.typeOfStore);
+        ComboService.initComboBox(ammoScale, IComboConstants.ammunitionScale);
+        ComboService.initComboBox(noOfUnit, IComboConstants.noOfUnit);
+        ComboService.initComboBox(limitations, IComboConstants.limitations);
     }
 
-    private void loadFromDataStore(){
-        FactoryService.autoSelectComboBoxValue( roadCondition, DataStore.getInstance().getGenInfo().getRoadCondition() );
-        FactoryService.autoSelectComboBoxValue( AmmoScale, DataStore.getInstance().getGenInfo().getAmmoScale() );
-        FactoryService.autoSelectComboBoxValue( noOfFireUnits, DataStore.getInstance().getGenInfo().getNoOfFireUnits() );
+    private void loadFromDataStore() {
+        ComboService.autoSelectComboBoxValue(loadingPoint, DataStore.getInstance().getGenInfo().getLoadingPoint());
+        ComboService.autoSelectComboBoxValue(roadCondition, DataStore.getInstance().getGenInfo().getRoadCondition());
+        ComboService.autoSelectComboBoxValue(typeOfStore, DataStore.getInstance().getGenInfo().getTypeOfStore());
+        ComboService.autoSelectComboBoxValue(ammoScale, DataStore.getInstance().getGenInfo().getAmmoScale());
+        ComboService.autoSelectComboBoxValue(noOfUnit, DataStore.getInstance().getGenInfo().getNoOfFireUnits());
+        ComboService.autoSelectComboBoxValue(limitations, DataStore.getInstance().getGenInfo().getLimitations());
     }
 
     @FXML
     private void next() throws IOException {
 
-        if(!checkData()) FactoryService.getErrorPopUp( IConstants.missingDataError );
+        if (!checkData()) FactoryService.getErrorPopUp(IConstants.missingDataError);
         else {
 
-            GenInfo genInfo = new GenInfo( roadCondition.getValue().getText().trim(),
-                    AmmoScale.getValue().getText().trim(), noOfFireUnits.getValue().getText().trim());
+            GenInfo genInfo = new GenInfo(loadingPoint.getValue().getText(), roadCondition.getValue().getText().trim(),
+                    typeOfStore.getValue().getText(), ammoScale.getValue().getText().trim(),
+                    noOfUnit.getValue().getText().trim(), limitations.getValue().getText() );
 
             // Singleton class
-            DataStore.getInstance().setGenInfo( genInfo );
+            DataStore.getInstance().setGenInfo(genInfo);
 
-            App.setRoot( new TimeCalController(), "TimeCal");
+            App.setRoot(new TimeCalController(), "TimeCal");
         }
     }
 
-    private boolean checkData(){
+    private boolean checkData() {
 
         boolean valid = true;
 
         if (roadCondition.getValue() == null || roadCondition.getValue().getText().trim().equals("")) valid = false;
-        if (AmmoScale.getValue() == null || AmmoScale.getValue().getText().trim().equals("")) valid = false;
-        if (noOfFireUnits.getValue() == null || noOfFireUnits.getValue().getText().trim().equals("")) valid = false;
+        if (ammoScale.getValue() == null || ammoScale.getValue().getText().trim().equals("")) valid = false;
+        if (noOfUnit.getValue() == null || noOfUnit.getValue().getText().trim().equals("")) valid = false;
 
         return valid;
 
