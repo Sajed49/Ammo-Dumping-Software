@@ -1,8 +1,6 @@
 package Constants;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public interface IComboConstants {
@@ -20,7 +18,7 @@ public interface IComboConstants {
     String[] shortHaltAfterHour = Arrays.stream(IntStream.range(1, 24).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
     String[] longHaltAfterHour = Arrays.stream(IntStream.range(1, 24).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
     String[] timeReqToLoad = Arrays.stream(IntStream.range(0, 24).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
-    String[] contingencyTime = Arrays.stream(IntStream.range(0, 24).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
+    String[] contingencyTime = Arrays.stream(IntStream.range(0, 49).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
 
     String[] availableVehicleCount = Arrays.stream(IntStream.range(0, 301).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
     String[] vehicleToVehicleDistance = Arrays.stream(IntStream.range(1, 1001).toArray()).mapToObj(String::valueOf).toArray(String[]::new);

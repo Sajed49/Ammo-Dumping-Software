@@ -100,7 +100,7 @@ public class UnitController implements Initializable {
     }
 
     public void setAmmoLabel(String ammunitionScale) {
-        this.ammoLabel.setText("Ammo ("+ammunitionScale+")");
+        this.ammoLabel.setText("Ammo (" + ammunitionScale + ")");
     }
 
     private void initPosnName() {
@@ -110,7 +110,7 @@ public class UnitController implements Initializable {
         posnName.add(posnName3);
 
         for (int i = 0; i < posnName.size(); i++) {
-            TextFieldService.initTextField( posnName.get(i), IComboConstants.posnName[i] );
+            TextFieldService.initTextField(posnName.get(i), IComboConstants.posnName[i]);
         }
     }
 
@@ -121,7 +121,7 @@ public class UnitController implements Initializable {
         priority.add(priority3);
 
         for (int i = 0; i < priority.size(); i++) {
-            ComboService.initComboBoxWithoutSelection( priority.get(i), IComboConstants.priority);
+            ComboService.initComboBoxWithoutSelection(priority.get(i), IComboConstants.priority);
             priority.get(i).getSelectionModel().select(i);
         }
     }
@@ -148,36 +148,34 @@ public class UnitController implements Initializable {
         }
     }
 
-    private void determineActiveStatus(int index){
+    private void determineActiveStatus(int index) {
 
         enable(0);
 
-        if( index == 0 ) {
+        if (index == 0) {
             enable(1);
             enable(2);
-        }
-        else if( index == 1) {
+        } else if (index == 1) {
             enable(1);
             disable(2);
-        }
-        else {
+        } else {
             disable(1);
             disable(2);
         }
     }
 
-    private void disable(int index){
+    private void disable(int index) {
 
-        posnName.get(index).setDisable( true );
-        priority.get(index).setDisable( true );
-        distance.get(index).setDisable( true );
-        ammo.get(index).setDisable( true );
+        posnName.get(index).setDisable(true);
+        priority.get(index).setDisable(true);
+        distance.get(index).setDisable(true);
+        ammo.get(index).setDisable(true);
     }
 
     private void enable(int index) {
-        posnName.get(index).setDisable( false );
-        priority.get(index).setDisable( false );
-        distance.get(index).setDisable( false );
-        ammo.get(index).setDisable( false );
+        posnName.get(index).setDisable(false);
+        priority.get(index).setDisable(false);
+        distance.get(index).setDisable(false);
+        ammo.get(index).setDisable(false);
     }
 }

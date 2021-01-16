@@ -26,7 +26,7 @@ public class UnitInfoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (DataStore.getInstance().getGenInfo() != null){
+        if (DataStore.getInstance().getGenInfo() != null) {
 
             totalUnits = Integer.valueOf(DataStore.getInstance().getGenInfo().getNoOfFireUnits());
             typeOfStore = DataStore.getInstance().getGenInfo().getTypeOfStore();
@@ -38,8 +38,8 @@ public class UnitInfoController implements Initializable {
             for (int i = 0; i < totalUnits; i++) {
                 addUnit();
                 unitControllers.get(i).setSer(i + 1);
-                unitControllers.get(i).setEqptLabelName( typeOfStore );
-                unitControllers.get(i).setAmmoLabel( ammunitionScale );
+                unitControllers.get(i).setEqptLabelName(typeOfStore);
+                unitControllers.get(i).setAmmoLabel(ammunitionScale);
             }
         } catch (IOException e) {
             e.printStackTrace();

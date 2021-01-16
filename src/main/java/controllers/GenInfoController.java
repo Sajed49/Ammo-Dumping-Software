@@ -67,7 +67,7 @@ public class GenInfoController implements Initializable {
 
             GenInfo genInfo = new GenInfo(loadingPoint.getValue().getText(), roadCondition.getValue().getText().trim(),
                     typeOfStore.getValue().getText(), ammoScale.getValue().getText().trim(),
-                    noOfUnit.getValue().getText().trim(), limitations.getValue().getText() );
+                    noOfUnit.getValue().getText().trim(), limitations.getValue().getText());
 
             // Singleton class
             DataStore.getInstance().setGenInfo(genInfo);
