@@ -30,6 +30,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -41,7 +42,7 @@
                         <Label styleClass="custom-label" text="Dumping Start Time" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label styleClass="custom-label" text="Dumping End Time" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <Label styleClass="custom-label" text="Time Reqr To Load (1 X 3 Ton) (Hr)" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-                        <Label styleClass="custom-label" text="Contingency Time (Hr)" GridPane.rowIndex="7" />
+                        <Label styleClass="custom-label" text="Contingency Time (Hr)" GridPane.rowIndex="8" />
                         <Label styleClass="custom-label" text="Short Halt (Min)" GridPane.rowIndex="3" />
                         <Label styleClass="custom-label" text="After Hour" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                         <Label styleClass="custom-label" text="Long Halt (Hour)" GridPane.rowIndex="4" />
@@ -57,10 +58,12 @@
                         <JFXComboBox fx:id="longHaltTime" minWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <JFXComboBox fx:id="longHaltAfterHour" minWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                         <JFXComboBox fx:id="timeReqToLoad" minWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                        <JFXComboBox fx:id="contingencyTime" minWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                        <JFXButton onAction="#calculate" styleClass="custom-button" text="Calculate Time Available" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-                  <Label styleClass="custom-label" text="Dumping Exec Pd" GridPane.rowIndex="6" />
-                  <JFXComboBox fx:id="dumpingExecPeriod" minWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <JFXComboBox fx:id="contingencyTime" minWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <JFXButton onAction="#calculate" styleClass="custom-button" text="Calculate Time Available" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+                  <Label styleClass="custom-label" text="Dumping Exec Pd" GridPane.rowIndex="7" />
+                  <JFXComboBox fx:id="dumpingExecPeriod" minWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <Label styleClass="custom-label" text="Time Reqr To Unload (1 X 3 Ton) (Hr)" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                  <JFXComboBox fx:id="timeReqToUnload" minWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                     </children>
                 </GridPane>
                 <GridPane hgap="10.0" minWidth="800.0" vgap="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="550.0">

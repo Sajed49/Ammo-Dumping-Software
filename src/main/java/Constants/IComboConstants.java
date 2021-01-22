@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 public interface IComboConstants {
 
-    String[] loadingPoint = {"Log Base", "RP", "BAA", "DAA"};
+    String[] loadingPoint = {"Log Base", "RP", "BAA", "DAA", "FLB"};
     String[] road = {"Good Road with Good Surface", "Hilly Road with Twist", "Bad Road"};
     String[] typeOfStore = {"Arty Ammo", "Engr Store", "SAA", "Ration", "POL", "Misc Store"};
     String[] ammunitionScale = {"RPG", "X 2nd Line"};

@@ -46,6 +46,8 @@ public class TimeCalController implements Initializable {
     @FXML
     JFXComboBox<Label> timeReqToLoad = new JFXComboBox<>();
     @FXML
+    JFXComboBox<Label> timeReqToUnload = new JFXComboBox<>();
+    @FXML
     JFXComboBox<Label> dumpingExecPeriod = new JFXComboBox<>();
     @FXML
     JFXComboBox<Label> contingencyTime = new JFXComboBox<>();
@@ -80,6 +82,7 @@ public class TimeCalController implements Initializable {
         ComboService.initComboBox(shortHaltAfterHour, IComboConstants.shortHaltAfterHour);
         ComboService.initComboBox(longHaltAfterHour, IComboConstants.longHaltAfterHour);
         ComboService.initComboBox(timeReqToLoad, IComboConstants.timeReqToLoad);
+        ComboService.initComboBox(timeReqToUnload, IComboConstants.timeReqToLoad);
         ComboService.initComboBox(dumpingExecPeriod, IComboConstants.dumpingExecPeriod);
         ComboService.initComboBox(contingencyTime, IComboConstants.contingencyTime);
     }
@@ -100,6 +103,7 @@ public class TimeCalController implements Initializable {
 
         LocalDateTime reducedForContingency = TimeService.reduceTimeByHours(
                 dumpingEndDate, dumpingEndTime, Integer.parseInt(contingencyTime.getValue().getText()));
+
         if( dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1]) ) // only night
             reducedForContingency = LocalDateTime.of(dumpingEndDate.getValue(), dumpingEndTime.getValue());
 
@@ -148,7 +152,8 @@ public class TimeCalController implements Initializable {
         TimeCal timeCal = new TimeCal(TimeService.display(firstLight), TimeService.display(lastLight), TimeService.display(dumpingStartTime),
                 TimeService.display(dumpingEndTime), DateService.display(dumpingStartDate), DateService.display(dumpingEndDate),
                 shortHaltTime.getValue().getText(), longHaltTime.getValue().getText(), shortHaltAfterHour.getValue().getText(),
-                longHaltAfterHour.getValue().getText(), timeReqToLoad.getValue().getText(), contingencyTime.getValue().getText(),
+                longHaltAfterHour.getValue().getText(), timeReqToLoad.getValue().getText(), timeReqToUnload.getValue().getText(),
+                dumpingExecPeriod.getValue().getText(), contingencyTime.getValue().getText(),
                 dayTimeAvailable.getText(), nightTimeAvailable.getText(), totalDayTimeAvailable.getText(),
                 totalNightTimeAvailable.getText(), totalTimeAvailable.getText());
 
@@ -173,6 +178,8 @@ public class TimeCalController implements Initializable {
         ComboService.autoSelectComboBoxValue(shortHaltAfterHour, DataStore.getInstance().getTimeCal().getShortHaltAfterHour());
         ComboService.autoSelectComboBoxValue(longHaltAfterHour, DataStore.getInstance().getTimeCal().getLongHaltAfterHour());
         ComboService.autoSelectComboBoxValue(timeReqToLoad, DataStore.getInstance().getTimeCal().getTimeReqToLoad());
+        ComboService.autoSelectComboBoxValue(timeReqToUnload, DataStore.getInstance().getTimeCal().getTimeReqToUnload());
+        ComboService.autoSelectComboBoxValue(dumpingExecPeriod, DataStore.getInstance().getTimeCal().getDumpingExecPeriod());
         ComboService.autoSelectComboBoxValue(contingencyTime, DataStore.getInstance().getTimeCal().getContingencyTime());
     }
 
