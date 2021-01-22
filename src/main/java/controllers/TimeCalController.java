@@ -46,6 +46,8 @@ public class TimeCalController implements Initializable {
     @FXML
     JFXComboBox<Label> timeReqToLoad = new JFXComboBox<>();
     @FXML
+    JFXComboBox<Label> dumpingExecPeriod = new JFXComboBox<>();
+    @FXML
     JFXComboBox<Label> contingencyTime = new JFXComboBox<>();
 
 
@@ -78,6 +80,7 @@ public class TimeCalController implements Initializable {
         ComboService.initComboBox(shortHaltAfterHour, IComboConstants.shortHaltAfterHour);
         ComboService.initComboBox(longHaltAfterHour, IComboConstants.longHaltAfterHour);
         ComboService.initComboBox(timeReqToLoad, IComboConstants.timeReqToLoad);
+        ComboService.initComboBox(dumpingExecPeriod, IComboConstants.dumpingExecPeriod);
         ComboService.initComboBox(contingencyTime, IComboConstants.contingencyTime);
     }
 
@@ -97,6 +100,9 @@ public class TimeCalController implements Initializable {
 
         LocalDateTime reducedForContingency = TimeService.reduceTimeByHours(
                 dumpingEndDate, dumpingEndTime, Integer.parseInt(contingencyTime.getValue().getText()));
+        if( dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1]) ) // only night
+            reducedForContingency = LocalDateTime.of(dumpingEndDate.getValue(), dumpingEndTime.getValue());
+
         long days = DateService.findDays(dumpingStartDate.getValue(), reducedForContingency.toLocalDate());
 
         System.out.println(reducedForContingency);
@@ -121,9 +127,17 @@ public class TimeCalController implements Initializable {
 
         dayTimeAvailable.setText(TimeService.formatToDisplay(dayTime));
         nightTimeAvailable.setText(TimeService.formatToDisplay(24 * 60 - dayTime));
+
+        if( dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1]) ) {
+            totalDayTime = 0L;
+            totalNightTime -= ( 60L *Integer.parseInt(contingencyTime.getValue().getText()) );
+        }
+
         totalDayTimeAvailable.setText(TimeService.formatToDisplay(totalDayTime));
         totalNightTimeAvailable.setText(TimeService.formatToDisplay(totalNightTime));
         totalTimeAvailable.setText(TimeService.formatToDisplay(totalDayTime + totalNightTime));
+
+
     }
 
     @FXML

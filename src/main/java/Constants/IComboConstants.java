@@ -10,7 +10,7 @@ public interface IComboConstants {
     String[] typeOfStore = {"Arty Ammo", "Engr Store", "SAA", "Ration", "POL", "Misc Store"};
     String[] ammunitionScale = {"RPG", "X 2nd Line"};
     String[] noOfUnit = Arrays.stream(IntStream.range(1, 11).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
-    String[] limitations = {"Vehicle Limitations", "Time Limitations"};
+    String[] limitations = {"No of Vehicle is Limited", "Time Constraints Imposed"};
 
 
     String[] shortHaltDuration = Arrays.stream(IntStream.range(0, 61).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
@@ -18,6 +18,7 @@ public interface IComboConstants {
     String[] shortHaltAfterHour = Arrays.stream(IntStream.range(1, 24).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
     String[] longHaltAfterHour = Arrays.stream(IntStream.range(1, 24).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
     String[] timeReqToLoad = Arrays.stream(IntStream.range(0, 24).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
+    String[] dumpingExecPeriod = {"Both Day & Ni", " Only at Ni"};
     String[] contingencyTime = Arrays.stream(IntStream.range(0, 49).toArray()).mapToObj(String::valueOf).toArray(String[]::new);
 
     String[] availableVehicleCount = Arrays.stream(IntStream.range(0, 301).toArray()).mapToObj(String::valueOf).toArray(String[]::new);

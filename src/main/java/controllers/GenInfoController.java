@@ -38,6 +38,10 @@ public class GenInfoController implements Initializable {
         initGenInfo();
 
         if (DataStore.getInstance().getGenInfo() != null) loadFromDataStore();
+
+        typeOfStore.setOnAction( e -> {
+            ammoScale.setVisible(typeOfStore.getValue().getText().equals(IComboConstants.typeOfStore[0]));
+        });
     }
 
     private void initGenInfo() {
@@ -57,6 +61,8 @@ public class GenInfoController implements Initializable {
         ComboService.autoSelectComboBoxValue(ammoScale, DataStore.getInstance().getGenInfo().getAmmoScale());
         ComboService.autoSelectComboBoxValue(noOfUnit, DataStore.getInstance().getGenInfo().getNoOfFireUnits());
         ComboService.autoSelectComboBoxValue(limitations, DataStore.getInstance().getGenInfo().getLimitations());
+
+        ammoScale.setVisible(typeOfStore.getValue().getText().equals(IComboConstants.typeOfStore[0]));
     }
 
     @FXML

@@ -95,12 +95,26 @@ public class UnitController implements Initializable {
 
     public void setEqptLabelName(String typeOfStore) {
 
-        if (typeOfStore.equals(IComboConstants.typeOfStore[0])) this.eqptName.setText("Eqpt Name");
-        else this.eqptName.setText("Type of Store");
+        if (typeOfStore.equals(IComboConstants.typeOfStore[0])) {
+            this.eqptName.setText("Eqpt Name");
+            ComboService.initComboBox(gunType, IComboConstants.gunType);
+            this.noOfGuns.setVisible( true );
+        }
+        else {
+            this.eqptName.setText("Type of Store");
+            ComboService.initComboBox(gunType, new String[] {typeOfStore});
+            this.noOfGuns.setVisible( false );
+        }
     }
 
-    public void setAmmoLabel(String ammunitionScale) {
-        this.ammoLabel.setText("Ammo (" + ammunitionScale + ")");
+    public void setAmmoLabel(String typeOfStore, String ammunitionScale) {
+
+        if (typeOfStore.equals(IComboConstants.typeOfStore[0])) {
+            this.ammoLabel.setText("Ammo (" + ammunitionScale + ")");
+        }
+        else {
+            this.ammoLabel.setText("No of 3 Ton Load");
+        }
     }
 
     private void initPosnName() {
@@ -178,4 +192,6 @@ public class UnitController implements Initializable {
         distance.get(index).setDisable(false);
         ammo.get(index).setDisable(false);
     }
+
+    //public void set
 }

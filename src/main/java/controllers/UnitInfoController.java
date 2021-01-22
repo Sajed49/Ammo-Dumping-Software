@@ -1,6 +1,7 @@
 package controllers;
 
 import Constants.IComboConstants;
+import Constants.IConstants;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,8 +39,9 @@ public class UnitInfoController implements Initializable {
             for (int i = 0; i < totalUnits; i++) {
                 addUnit();
                 unitControllers.get(i).setSer(i + 1);
-                unitControllers.get(i).setEqptLabelName(typeOfStore);
-                unitControllers.get(i).setAmmoLabel(ammunitionScale);
+                unitControllers.get(i).setEqptLabelName( typeOfStore );
+                unitControllers.get(i).setAmmoLabel(typeOfStore, ammunitionScale);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
