@@ -19,6 +19,8 @@ public class TimeCal {
     String shortHaltAfterHour;
     String longHaltAfterHour;
     String timeReqToLoad;
+    String timeReqToUnload;
+    String dumpingExecPeriod;
     String contingencyTime;
 
     String dayTimeAvailable;

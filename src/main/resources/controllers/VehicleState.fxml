@@ -32,13 +32,13 @@
                         <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label styleClass="custom-label" text="Source" />
+                        <Label styleClass="custom-label" text="Source of Vehicle" />
                         <Label styleClass="custom-label" text="1st Line" GridPane.rowIndex="1" />
                         <Label styleClass="custom-label" text="2nd Line" GridPane.rowIndex="2" />
                         <Label styleClass="custom-label" text="3rd Line" GridPane.rowIndex="3" />
-                        <Label styleClass="custom-label" text="Avilable from (Time)" GridPane.columnIndex="2" />
-                        <Label styleClass="custom-label" text="Avilable from (Date)" GridPane.columnIndex="1" />
-                        <Label styleClass="custom-label" text="Number of Vehicles" GridPane.columnIndex="3" />
+                        <Label styleClass="custom-label" text="Available from (Time)" GridPane.columnIndex="2" />
+                        <Label styleClass="custom-label" text="Available from (Date)" GridPane.columnIndex="1" />
+                        <Label styleClass="custom-label" text="Qty of Vehicles" GridPane.columnIndex="3" />
                         <JFXDatePicker fx:id="availableDateLine1" defaultColor="#284469" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <JFXDatePicker fx:id="availableDateLine2" defaultColor="#284469" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <JFXDatePicker fx:id="availableDateLine3" defaultColor="#284469" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -52,7 +52,7 @@
                         <Label styleClass="custom-label" text="Density" GridPane.rowIndex="5" />
                         <JFXComboBox fx:id="vehicleToVehicleDistance" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <JFXComboBox fx:id="density" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <JFXButton onAction="#calculate" styleClass="custom-button" text="Calculate" GridPane.rowIndex="6" />
+                        <JFXButton onAction="#calculate" styleClass="custom-button" text="Calculate" GridPane.rowIndex="6" />
                     </children>
                 </GridPane>
                 <GridPane hgap="15.0" layoutX="50.0" layoutY="441.0" vgap="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="441.0">
@@ -68,7 +68,7 @@
                     </rowConstraints>
                     <children>
                         <Label styleClass="custom-label" text="Time" />
-                        <Label styleClass="custom-label" text="Avilable Vehicles" GridPane.columnIndex="1" />
+                        <Label styleClass="custom-label" text="Available Vehicles" GridPane.columnIndex="1" />
                         <Label fx:id="time1" styleClass="calculation-label" GridPane.rowIndex="1" />
                         <Label fx:id="totalAvailableVehicles1" styleClass="calculation-label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="time2" styleClass="calculation-label" GridPane.rowIndex="2" />

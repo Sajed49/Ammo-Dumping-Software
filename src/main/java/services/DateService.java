@@ -11,9 +11,9 @@ public class DateService {
     public static final String pattern = "dd-MM-yyyy";
     public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
-    public static long findDays(JFXDatePicker from, JFXDatePicker to) {
+    public static long findDays(LocalDate from, LocalDate to) {
 
-        return to.getValue().toEpochDay() - from.getValue().toEpochDay() + 1;
+        return to.toEpochDay() - from.toEpochDay() + 1;
     }
 
     public static String display(JFXDatePicker date) {

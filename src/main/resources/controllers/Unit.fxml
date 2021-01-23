@@ -36,20 +36,20 @@
         <Label styleClass="custom-label" text="Unit ID" GridPane.columnIndex="1" />
         <Label fx:id="eqptName" styleClass="custom-label" text="Eqpt Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label styleClass="custom-label" text="No of Guns" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label styleClass="custom-label" text="Total no of Posn" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <JFXComboBox fx:id="posCount" minWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <JFXTextField fx:id="posnName1" GridPane.columnIndex="4" />
-      <JFXComboBox fx:id="priority1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-      <JFXTextField fx:id="distance1" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-      <JFXTextField fx:id="ammo1" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <JFXTextField fx:id="posnName2" GridPane.columnIndex="5" />
-      <JFXComboBox fx:id="priority2" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-      <JFXTextField fx:id="distance2" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-      <JFXTextField fx:id="ammo2" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-      <JFXTextField fx:id="posnName3" GridPane.columnIndex="6" />
-      <JFXComboBox fx:id="priority3" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-      <JFXTextField fx:id="distance3" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-      <JFXTextField fx:id="ammo3" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+        <Label styleClass="custom-label" text="Total No of Posn" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <JFXComboBox fx:id="posCount" minWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <JFXTextField fx:id="posnName1" GridPane.columnIndex="4" />
+        <JFXComboBox fx:id="priority1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+        <JFXTextField fx:id="distance1" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+        <JFXTextField fx:id="ammo1" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+        <JFXTextField fx:id="posnName2" GridPane.columnIndex="5" />
+        <JFXComboBox fx:id="priority2" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+        <JFXTextField fx:id="distance2" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+        <JFXTextField fx:id="ammo2" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+        <JFXTextField fx:id="posnName3" GridPane.columnIndex="6" />
+        <JFXComboBox fx:id="priority3" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+        <JFXTextField fx:id="distance3" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+        <JFXTextField fx:id="ammo3" GridPane.columnIndex="6" GridPane.rowIndex="3" />
     </children>
     <padding>
         <Insets bottom="10.0" top="20.0" />

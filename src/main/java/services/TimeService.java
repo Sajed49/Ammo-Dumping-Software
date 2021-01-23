@@ -1,9 +1,11 @@
 package services;
 
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.util.StringConverter;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,6 +18,12 @@ public class TimeService {
         return Duration.between(from.getValue(), to.getValue()).toMinutes();
     }
 
+    public static long findTimeDiffInMinutes(LocalTime from, LocalTime to) {
+
+        if (Duration.between(from, to).toSecondsPart() == 59) {
+            return Duration.between(from, to).toMinutes() + 1;
+        } else return Duration.between(from, to).toMinutes();
+    }
 
     public static String formatToDisplay(long input) {
         return input / 60 + " hr " + input % 60 + " min";
@@ -61,6 +69,14 @@ public class TimeService {
                 }
             }
         });
+    }
+
+
+    public static LocalDateTime reduceTimeByHours(JFXDatePicker datePicker, JFXTimePicker timePicker, int hours) {
+
+        LocalDateTime dateTime = LocalDateTime.of(datePicker.getValue(), timePicker.getValue());
+        return dateTime.minus(Duration.ofHours(hours));
+
     }
 
 }

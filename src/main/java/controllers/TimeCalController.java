@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import main.App;
+import models.Day;
 import models.TimeCal;
 import result.DataStore;
 import services.ComboService;
@@ -16,6 +17,9 @@ import services.TimeService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TimeCalController implements Initializable {
@@ -41,6 +45,10 @@ public class TimeCalController implements Initializable {
     JFXComboBox<Label> longHaltAfterHour = new JFXComboBox<>();
     @FXML
     JFXComboBox<Label> timeReqToLoad = new JFXComboBox<>();
+    @FXML
+    JFXComboBox<Label> timeReqToUnload = new JFXComboBox<>();
+    @FXML
+    JFXComboBox<Label> dumpingExecPeriod = new JFXComboBox<>();
     @FXML
     JFXComboBox<Label> contingencyTime = new JFXComboBox<>();
 
@@ -74,6 +82,8 @@ public class TimeCalController implements Initializable {
         ComboService.initComboBox(shortHaltAfterHour, IComboConstants.shortHaltAfterHour);
         ComboService.initComboBox(longHaltAfterHour, IComboConstants.longHaltAfterHour);
         ComboService.initComboBox(timeReqToLoad, IComboConstants.timeReqToLoad);
+        ComboService.initComboBox(timeReqToUnload, IComboConstants.timeReqToLoad);
+        ComboService.initComboBox(dumpingExecPeriod, IComboConstants.dumpingExecPeriod);
         ComboService.initComboBox(contingencyTime, IComboConstants.contingencyTime);
     }
 
@@ -91,52 +101,48 @@ public class TimeCalController implements Initializable {
     @FXML
     private void calculate() {
 
-        long totalDayLightInADay = TimeService.findTimeDiffInMinutes(firstLight, lastLight);
-        long days = DateService.findDays(dumpingStartDate, dumpingEndDate);
+        LocalDateTime reducedForContingency = TimeService.reduceTimeByHours(
+                dumpingEndDate, dumpingEndTime, Integer.parseInt(contingencyTime.getValue().getText()));
 
-        dayTimeAvailable.setText(TimeService.formatToDisplay(totalDayLightInADay));
-        nightTimeAvailable.setText(TimeService.formatToDisplay((24 * 60) - totalDayLightInADay));
+        if( dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1]) ) // only night
+            reducedForContingency = LocalDateTime.of(dumpingEndDate.getValue(), dumpingEndTime.getValue());
 
-        long dumpingDayTime = 0L, dumpingNightTime1 = 0L, dumpingNightTime2 = 0L;
-        long totalDumpingTimeInADay = TimeService.findTimeDiffInMinutes(dumpingStartTime, dumpingEndTime);
-        long darkPhase1 = TimeService.findTimeDiffInMinutes(firstLight, dumpingStartTime);
-        long lightPhase1 = TimeService.findTimeDiffInMinutes(firstLight, dumpingEndTime);
-        long darkPhase2 = TimeService.findTimeDiffInMinutes(lastLight, dumpingEndTime);
-        long darkPhase2Reduction = TimeService.findTimeDiffInMinutes(lastLight, dumpingStartTime);
+        long days = DateService.findDays(dumpingStartDate.getValue(), reducedForContingency.toLocalDate());
 
-        if (darkPhase1 < 0) {
+        System.out.println(reducedForContingency);
+        ArrayList<Day> dayInfo = new ArrayList<>();
 
-            if (lightPhase1 < 0) dumpingNightTime1 = totalDumpingTimeInADay;
-            else if (darkPhase2 < 0) {
-                dumpingDayTime = lightPhase1;
-                dumpingNightTime1 = (-darkPhase1);
-            } else {
-                dumpingDayTime = totalDayLightInADay;
-                dumpingNightTime1 = (-darkPhase1);
-                dumpingNightTime2 = darkPhase2;
-            }
-        } else if (darkPhase2Reduction < 0) {
-            if (darkPhase2 < 0) dumpingDayTime += totalDumpingTimeInADay;
-            else {
-                dumpingDayTime = (-darkPhase2Reduction);
-                dumpingNightTime2 = darkPhase2;
-            }
+        if (days == 1) {
+            dayInfo.add(new Day(firstLight.getValue(), lastLight.getValue(), dumpingStartTime.getValue(), reducedForContingency.toLocalTime()));
         } else {
-            dumpingNightTime2 = totalDumpingTimeInADay;
+            dayInfo.add(new Day(firstLight.getValue(), lastLight.getValue(), dumpingStartTime.getValue(), LocalTime.MAX));
+            for (int i = 2; i < days; i++)
+                dayInfo.add(new Day(firstLight.getValue(), lastLight.getValue(), LocalTime.MIN, LocalTime.MAX));
+            dayInfo.add(new Day(firstLight.getValue(), lastLight.getValue(), LocalTime.MIN, reducedForContingency.toLocalTime()));
         }
 
-        long totalDumpingDayTime = days * dumpingDayTime;
-        long totalDumpingNightTime = days * (dumpingNightTime1 + dumpingNightTime2);
+        long totalDayTime = 0L, totalNightTime = 0L;
+        for (Day day : dayInfo) {
+            totalDayTime += day.getDumpingDayTime();
+            totalNightTime += (day.getDumpingNightTime1() + day.getDumpingNightTime2());
+        }
 
-        totalDumpingNightTime -= deductContingencyTimeInNight(dumpingNightTime1, dumpingDayTime, dumpingNightTime2);
-        totalDumpingDayTime -= deductContingencyTimeInDay(dumpingNightTime1, dumpingDayTime, dumpingNightTime2);
+        long dayTime = TimeService.findTimeDiffInMinutes(firstLight, lastLight);
 
-        totalDayTimeAvailable.setText(TimeService.formatToDisplay(totalDumpingDayTime));
-        totalNightTimeAvailable.setText(TimeService.formatToDisplay(totalDumpingNightTime));
+        dayTimeAvailable.setText(TimeService.formatToDisplay(dayTime));
+        nightTimeAvailable.setText(TimeService.formatToDisplay(24 * 60 - dayTime));
 
-        totalTimeAvailable.setText(TimeService.formatToDisplay(totalDumpingDayTime + totalDumpingNightTime));
+        if( dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1]) ) {
+            totalDayTime = 0L;
+            totalNightTime -= ( 60L *Integer.parseInt(contingencyTime.getValue().getText()) );
+        }
+
+        totalDayTimeAvailable.setText(TimeService.formatToDisplay(totalDayTime));
+        totalNightTimeAvailable.setText(TimeService.formatToDisplay(totalNightTime));
+        totalTimeAvailable.setText(TimeService.formatToDisplay(totalDayTime + totalNightTime));
+
+
     }
-
 
     @FXML
     private void next() throws IOException {
@@ -146,7 +152,8 @@ public class TimeCalController implements Initializable {
         TimeCal timeCal = new TimeCal(TimeService.display(firstLight), TimeService.display(lastLight), TimeService.display(dumpingStartTime),
                 TimeService.display(dumpingEndTime), DateService.display(dumpingStartDate), DateService.display(dumpingEndDate),
                 shortHaltTime.getValue().getText(), longHaltTime.getValue().getText(), shortHaltAfterHour.getValue().getText(),
-                longHaltAfterHour.getValue().getText(), timeReqToLoad.getValue().getText(), contingencyTime.getValue().getText(),
+                longHaltAfterHour.getValue().getText(), timeReqToLoad.getValue().getText(), timeReqToUnload.getValue().getText(),
+                dumpingExecPeriod.getValue().getText(), contingencyTime.getValue().getText(),
                 dayTimeAvailable.getText(), nightTimeAvailable.getText(), totalDayTimeAvailable.getText(),
                 totalNightTimeAvailable.getText(), totalTimeAvailable.getText());
 
@@ -171,46 +178,9 @@ public class TimeCalController implements Initializable {
         ComboService.autoSelectComboBoxValue(shortHaltAfterHour, DataStore.getInstance().getTimeCal().getShortHaltAfterHour());
         ComboService.autoSelectComboBoxValue(longHaltAfterHour, DataStore.getInstance().getTimeCal().getLongHaltAfterHour());
         ComboService.autoSelectComboBoxValue(timeReqToLoad, DataStore.getInstance().getTimeCal().getTimeReqToLoad());
+        ComboService.autoSelectComboBoxValue(timeReqToUnload, DataStore.getInstance().getTimeCal().getTimeReqToUnload());
+        ComboService.autoSelectComboBoxValue(dumpingExecPeriod, DataStore.getInstance().getTimeCal().getDumpingExecPeriod());
         ComboService.autoSelectComboBoxValue(contingencyTime, DataStore.getInstance().getTimeCal().getContingencyTime());
-    }
-
-
-    private Long deductContingencyTimeInNight(long nightTime1, long dayLightTime, long nightTime2) {
-
-        long contingency = Integer.parseInt(contingencyTime.getValue().getText()) * 60L;
-        long result = 0;
-
-        if (contingency > 0) {
-            result += Math.min(contingency, nightTime2);
-            contingency -= Math.min(contingency, nightTime2);
-        }
-
-        if (contingency > 0) {
-            contingency -= Math.min(contingency, dayLightTime);
-        }
-
-        if (contingency > 0) {
-            result += Math.min(contingency, nightTime1);
-        }
-
-        return result;
-    }
-
-
-    private Long deductContingencyTimeInDay(long nightTime1, long dayLightTime, long nightTime2) {
-
-        long contingency = Integer.parseInt(contingencyTime.getValue().getText()) * 60L;
-        long result = 0;
-
-        if (contingency > 0) {
-            contingency -= Math.min(contingency, nightTime2);
-        }
-
-        if (contingency > 0) {
-            result += Math.min(contingency, dayLightTime);
-        }
-
-        return result;
     }
 
 
