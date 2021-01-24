@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import models.Unit;
 import result.DataStore;
+import services.ComboService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,29 +32,42 @@ public class UnitInfoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        unitControllers.clear();
+
         if (DataStore.getInstance().getGenInfo() != null) {
 
             totalUnits = Integer.valueOf(DataStore.getInstance().getGenInfo().getNoOfFireUnits());
             typeOfStore = DataStore.getInstance().getGenInfo().getTypeOfStore();
             ammunitionScale = DataStore.getInstance().getGenInfo().getAmmoScale();
-        }
 
+            try {
+                for (int i = 0; i < totalUnits; i++) {
+                    addUnit();
+                    unitControllers.get(i).setSer(i + 1);
+                    unitControllers.get(i).setEqptLabelName( typeOfStore );
+                    unitControllers.get(i).setAmmoLabel(typeOfStore, ammunitionScale);
+                }
 
-        try {
-            for (int i = 0; i < totalUnits; i++) {
-                addUnit();
-                unitControllers.get(i).setSer(i + 1);
-                unitControllers.get(i).setEqptLabelName( typeOfStore );
-                unitControllers.get(i).setAmmoLabel(typeOfStore, ammunitionScale);
-
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            next.getStyleClass().add("custom-button");
-            vBox.getChildren().add( next );
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            if( unitControllers.size() <= DataStore.getInstance().getUnitInfo().size()) loadFromDataStore();
         }
+
+        initNextButton();
+    }
+
+    private void initNextButton(){
+        next.getStyleClass().add("custom-button");
+        next.setOnAction(e -> {
+            try {
+                next();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        vBox.getChildren().add( next );
     }
 
     private void addUnit() throws IOException {
@@ -64,20 +78,34 @@ public class UnitInfoController implements Initializable {
         vBox.getChildren().add(pane);
     }
 
-    @FXML
     private void next() throws IOException {
 
-        DataStore.getInstance().setUnitInfo(null);
+        DataStore.getInstance().getUnitInfo().clear();
 
         for (UnitController unitController : unitControllers) {
-            makeUnit( unitController );
+            Unit unit = new Unit(unitController);
+            DataStore.getInstance().getUnitInfo().add( unit );
         }
-        //App.setRoot(new VehicleStateController(), "VehicleState");
+//        System.out.println( DataStore.getInstance().getUnitInfo().get(0));
     }
 
-    private void makeUnit( UnitController unitController){
+    private void loadFromDataStore() {
 
-        Unit unit = new Unit(unitController);
-        System.out.println( unit );
+        ArrayList<Unit> units = DataStore.getInstance().getUnitInfo();
+
+        for (int i = 0; i < unitControllers.size(); i++) {
+
+            unitControllers.get(i).setAllSavedData( units.get(i) );
+        }
+
+//        DataStore.getInstance().getVehicleState().loadAvailableDate(availableDateLine1, availableDateLine2, availableDateLine3);
+//        DataStore.getInstance().getVehicleState().loadAvailableTime(availableTimeLine1, availableTimeLine2, availableTimeLine3);
+//        DataStore.getInstance().getVehicleState().loadTotalAvailableVehicles(
+//                availableVehicleLine1, availableVehicleLine2, availableVehicleLine3);
+//
+//        ComboService.autoSelectComboBoxValue(
+//                vehicleToVehicleDistance, DataStore.getInstance().getVehicleState().getVehicleToVehicleDistance());
+//        ComboService.autoSelectComboBoxValue(density, DataStore.getInstance().getVehicleState().getDensity());
     }
+
 }

@@ -15,7 +15,7 @@ public class DataStore {
     private GenInfo genInfo;
     private TimeCal timeCal;
     private VehicleState vehicleState;
-    private ArrayList<Unit> unitInfo;
+    private ArrayList<Unit> unitInfo = new ArrayList<>();
 
     private DataStore() {
     }

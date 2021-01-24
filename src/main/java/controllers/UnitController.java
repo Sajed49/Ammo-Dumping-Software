@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import lombok.Data;
+import models.Unit;
+import models.pos.ArtiPos;
+import models.pos.OtherPos;
 import services.ComboService;
 import services.TextFieldService;
 
@@ -77,9 +80,13 @@ public class UnitController implements Initializable {
         initAmmo();
 
         posCount.setOnAction(e -> {
-            int index = posCount.getSelectionModel().getSelectedIndex();
-            determineActiveStatus(index);
+            setPosVisibility();
         });
+    }
+
+    private void setPosVisibility(){
+        int index = posCount.getSelectionModel().getSelectedIndex();
+        determineActiveStatus(index);
     }
 
     private void initComboBoxes() {
@@ -195,4 +202,60 @@ public class UnitController implements Initializable {
     }
 
     //public void set
+
+    public void setAllSavedData(Unit unit) {
+        setComboBoxes(unit);
+        setPosNames(unit);
+        setPriority(unit);
+        setDistance(unit);
+        setAmmo(unit);
+    }
+
+    private void setComboBoxes( Unit unit) {
+
+        ComboService.autoSelectComboBoxValue( unitName, unit.getUnitName());
+        ComboService.autoSelectComboBoxValue( gunType, unit.getGunType());
+        ComboService.autoSelectComboBoxValue( noOfGuns, String.valueOf( unit.getNoOfGuns() ) );
+        ComboService.autoSelectComboBoxValue( posCount, String.valueOf( unit.getPosCount()) );
+
+        setPosVisibility();
+    }
+
+    private void setPosNames( Unit unit) {
+        for (int i = 0; i < unit.getPositions().size(); i++) {
+            TextFieldService.initTextField(posnName.get(i), unit.getPositions().get(i).getPosName() );
+        }
+    }
+
+    private void setPriority( Unit unit ) {
+
+        for (int i = 0; i < unit.getPositions().size(); i++) {
+            ComboService.autoSelectComboBoxValue(priority.get(i), String.valueOf( unit.getPositions().get(i).getPriority() ) );
+        }
+    }
+
+    private void setDistance( Unit unit ) {
+
+        for (int i = 0; i < unit.getPositions().size(); i++) {
+            TextFieldService.initTextField(distance.get(i), String.valueOf(unit.getPositions().get(i).getDistance()));
+        }
+    }
+
+    private void setAmmo( Unit unit ) {
+
+        for (int i = 0; i < unit.getPositions().size(); i++) {
+
+            System.out.println(unit.getPositions().get(i) instanceof ArtiPos);
+
+            if( unit.getPositions().get(i) instanceof ArtiPos ) {
+                ArtiPos temp = (ArtiPos) unit.getPositions().get(i);
+                TextFieldService.initTextField(ammo.get(i), String.valueOf( temp.getNoOfAmmo() ) );
+            }
+            else {
+                OtherPos temp = (OtherPos) unit.getPositions().get(i);
+                TextFieldService.initTextField(ammo.get(i), String.valueOf( temp.getNoOfThreeTon() ) );
+            }
+        }
+    }
+
 }
