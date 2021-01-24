@@ -1,12 +1,13 @@
 package controllers;
 
 import Constants.IComboConstants;
-import Constants.IConstants;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import models.Unit;
 import result.DataStore;
 
 import java.io.IOException;
@@ -18,6 +19,9 @@ public class UnitInfoController implements Initializable {
 
     @FXML
     VBox vBox = new VBox();
+    @FXML
+    JFXButton next = new JFXButton("Next");
+
 
     ArrayList<UnitController> unitControllers = new ArrayList<>();
     Integer totalUnits = 0;
@@ -43,6 +47,10 @@ public class UnitInfoController implements Initializable {
                 unitControllers.get(i).setAmmoLabel(typeOfStore, ammunitionScale);
 
             }
+
+            next.getStyleClass().add("custom-button");
+            vBox.getChildren().add( next );
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,5 +62,22 @@ public class UnitInfoController implements Initializable {
         GridPane pane = loader.load();
         unitControllers.add(loader.getController());
         vBox.getChildren().add(pane);
+    }
+
+    @FXML
+    private void next() throws IOException {
+
+        DataStore.getInstance().setUnitInfo(null);
+
+        for (UnitController unitController : unitControllers) {
+            makeUnit( unitController );
+        }
+        //App.setRoot(new VehicleStateController(), "VehicleState");
+    }
+
+    private void makeUnit( UnitController unitController){
+
+        Unit unit = new Unit(unitController);
+        System.out.println( unit );
     }
 }

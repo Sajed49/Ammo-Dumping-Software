@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import lombok.Data;
 import services.ComboService;
 import services.TextFieldService;
 
@@ -13,7 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+@Data
 public class UnitController implements Initializable {
 
     @FXML

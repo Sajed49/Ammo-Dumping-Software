@@ -1,0 +1,29 @@
+.custom-label {
+    -fx-text-fill: #284469;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px ;
+}
+
+.combo-box-popup .list-view {
+    -fx-font-size : 18px;
+}
+.combo-box{
+    -fx-font-size : 18px;
+}
+
+.text-field {
+    -fx-font-size: 18px;
+}
+
+.custom-button {
+    -fx-background-color: #284469;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px ;
+}
+
+.calculation-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px ;
+}
+
