@@ -104,7 +104,7 @@ public class TimeCalController implements Initializable {
         LocalDateTime reducedForContingency = TimeService.reduceTimeByHours(
                 dumpingEndDate, dumpingEndTime, Integer.parseInt(contingencyTime.getValue().getText()));
 
-        if( dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1]) ) // only night
+        if (dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1])) // only night
             reducedForContingency = LocalDateTime.of(dumpingEndDate.getValue(), dumpingEndTime.getValue());
 
         long days = DateService.findDays(dumpingStartDate.getValue(), reducedForContingency.toLocalDate());
@@ -132,9 +132,9 @@ public class TimeCalController implements Initializable {
         dayTimeAvailable.setText(TimeService.formatToDisplay(dayTime));
         nightTimeAvailable.setText(TimeService.formatToDisplay(24 * 60 - dayTime));
 
-        if( dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1]) ) {
+        if (dumpingExecPeriod.getValue().getText().equals(IComboConstants.dumpingExecPeriod[1])) {
             totalDayTime = 0L;
-            totalNightTime -= ( 60L *Integer.parseInt(contingencyTime.getValue().getText()) );
+            totalNightTime -= (60L * Integer.parseInt(contingencyTime.getValue().getText()));
         }
 
         totalDayTimeAvailable.setText(TimeService.formatToDisplay(totalDayTime));

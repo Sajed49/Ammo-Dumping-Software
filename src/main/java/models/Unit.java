@@ -1,6 +1,5 @@
 package models;
 
-import Constants.IComboConstants;
 import controllers.UnitController;
 import lombok.Data;
 import models.pos.ArtiPos;
@@ -32,20 +31,21 @@ public class Unit {
 
         this.unitName = controller.getUnitName().getValue().getText();
         this.gunType = controller.getGunType().getValue().getText();
-        this.noOfGuns = Integer.parseInt( controller.getNoOfGuns().getValue().getText() );
-        this.posCount = Integer.parseInt( controller.getPosCount().getValue().getText() );
+        this.noOfGuns = Integer.parseInt(controller.getNoOfGuns().getValue().getText());
+        this.posCount = Integer.parseInt(controller.getPosCount().getValue().getText());
 
 //        System.out.println( this.posCount );
-        for (int i = 0; i < this.posCount ; i++) {
+        for (int i = 0; i < this.posCount; i++) {
 
             Pos pos;
-            if( this.labelEqptName.equalsIgnoreCase( "Eqpt Name") )
-                pos = new ArtiPos(  controller.getPosnName().get(i).getText(), Integer.parseInt( controller.getPriority().get(i).getValue().getText() ),
-                    Double.parseDouble( controller.getDistance().get(i).getText() ), Double.parseDouble( controller.getAmmo().get(i).getText() ) );
-            else pos = new OtherPos(  controller.getPosnName().get(i).getText(), Integer.parseInt( controller.getPriority().get(i).getValue().getText() ),
-                    Double.parseDouble( controller.getDistance().get(i).getText() ), Double.parseDouble( controller.getAmmo().get(i).getText() ) );
+            if (this.labelEqptName.equalsIgnoreCase("Eqpt Name"))
+                pos = new ArtiPos(controller.getPosnName().get(i).getText(), Integer.parseInt(controller.getPriority().get(i).getValue().getText()),
+                        Double.parseDouble(controller.getDistance().get(i).getText()), Double.parseDouble(controller.getAmmo().get(i).getText()));
+            else
+                pos = new OtherPos(controller.getPosnName().get(i).getText(), Integer.parseInt(controller.getPriority().get(i).getValue().getText()),
+                        Double.parseDouble(controller.getDistance().get(i).getText()), Double.parseDouble(controller.getAmmo().get(i).getText()));
 
-            positions.add( pos );
+            positions.add(pos);
         }
     }
 }

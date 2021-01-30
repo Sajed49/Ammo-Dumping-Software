@@ -2,18 +2,20 @@ package controllers;
 
 import Constants.IComboConstants;
 import com.jfoenix.controls.JFXButton;
+import controllers.calculation.BreakdownInfoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import main.App;
 import models.Unit;
 import result.DataStore;
-import services.ComboService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class UnitInfoController implements Initializable {
@@ -44,7 +46,7 @@ public class UnitInfoController implements Initializable {
                 for (int i = 0; i < totalUnits; i++) {
                     addUnit();
                     unitControllers.get(i).setSer(i + 1);
-                    unitControllers.get(i).setEqptLabelName( typeOfStore );
+                    unitControllers.get(i).setEqptLabelName(typeOfStore);
                     unitControllers.get(i).setAmmoLabel(typeOfStore, ammunitionScale);
                 }
 
@@ -52,13 +54,13 @@ public class UnitInfoController implements Initializable {
                 e.printStackTrace();
             }
 
-            if( unitControllers.size() <= DataStore.getInstance().getUnitInfo().size()) loadFromDataStore();
+            if (unitControllers.size() <= DataStore.getInstance().getUnitInfo().size()) loadFromDataStore();
         }
 
         initNextButton();
     }
 
-    private void initNextButton(){
+    private void initNextButton() {
         next.getStyleClass().add("custom-button");
         next.setOnAction(e -> {
             try {
@@ -67,7 +69,7 @@ public class UnitInfoController implements Initializable {
                 ioException.printStackTrace();
             }
         });
-        vBox.getChildren().add( next );
+        vBox.getChildren().add(next);
     }
 
     private void addUnit() throws IOException {
@@ -83,10 +85,11 @@ public class UnitInfoController implements Initializable {
         DataStore.getInstance().getUnitInfo().clear();
 
         for (UnitController unitController : unitControllers) {
+            unitController.sort();
             Unit unit = new Unit(unitController);
-            DataStore.getInstance().getUnitInfo().add( unit );
+            DataStore.getInstance().getUnitInfo().add(unit);
         }
-//        System.out.println( DataStore.getInstance().getUnitInfo().get(0));
+        App.setRoot(new BreakdownInfoController(), "BreakdownInfo");
     }
 
     private void loadFromDataStore() {
@@ -95,17 +98,8 @@ public class UnitInfoController implements Initializable {
 
         for (int i = 0; i < unitControllers.size(); i++) {
 
-            unitControllers.get(i).setAllSavedData( units.get(i) );
+            unitControllers.get(i).setAllSavedData(units.get(i));
         }
-
-//        DataStore.getInstance().getVehicleState().loadAvailableDate(availableDateLine1, availableDateLine2, availableDateLine3);
-//        DataStore.getInstance().getVehicleState().loadAvailableTime(availableTimeLine1, availableTimeLine2, availableTimeLine3);
-//        DataStore.getInstance().getVehicleState().loadTotalAvailableVehicles(
-//                availableVehicleLine1, availableVehicleLine2, availableVehicleLine3);
-//
-//        ComboService.autoSelectComboBoxValue(
-//                vehicleToVehicleDistance, DataStore.getInstance().getVehicleState().getVehicleToVehicleDistance());
-//        ComboService.autoSelectComboBoxValue(density, DataStore.getInstance().getVehicleState().getDensity());
     }
 
 }

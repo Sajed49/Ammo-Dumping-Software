@@ -7,9 +7,9 @@ import com.jfoenix.controls.JFXTimePicker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import lombok.Data;
 import main.App;
 import models.VehicleState;
+import models.breakdown.VehicleGroup;
 import result.DataStore;
 import services.ComboService;
 import services.DateService;
@@ -17,7 +17,6 @@ import services.TimeService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -111,14 +110,9 @@ public class VehicleStateController implements Initializable {
         time2.setText(DateService.display(sortedList.get(1).getDatePicker()) + " - " + TimeService.display(sortedList.get(1).getTimePicker()));
         time3.setText(DateService.display(sortedList.get(2).getDatePicker()) + " - " + TimeService.display(sortedList.get(2).getTimePicker()));
 
-        totalAvailableVehicles1.setText(sortedList.get(0).getCount().getText());
-        totalAvailableVehicles2.setText(String.valueOf(
-                Integer.parseInt(sortedList.get(0).getCount().getText())
-                        + Integer.parseInt(sortedList.get(1).getCount().getText())));
-        totalAvailableVehicles3.setText(String.valueOf(
-                Integer.parseInt(sortedList.get(0).getCount().getText())
-                        + Integer.parseInt(sortedList.get(1).getCount().getText())
-                        + Integer.parseInt(sortedList.get(2).getCount().getText())));
+        totalAvailableVehicles1.setText(String.valueOf(VehicleGroup.getTotalCount( sortedList, 0)));
+        totalAvailableVehicles2.setText(String.valueOf(VehicleGroup.getTotalCount( sortedList, 1)));
+        totalAvailableVehicles3.setText(String.valueOf(VehicleGroup.getTotalCount( sortedList, 2)));
     }
 
 
@@ -130,8 +124,7 @@ public class VehicleStateController implements Initializable {
         VehicleState vehicleState = new VehicleState();
         vehicleState.setAvailableDate(availableDateLine1, availableDateLine2, availableDateLine3);
         vehicleState.setAvailableTime(availableTimeLine1, availableTimeLine2, availableTimeLine3);
-        vehicleState.setAvailableVehicle(
-                totalAvailableVehicles1, totalAvailableVehicles2, totalAvailableVehicles3);
+        vehicleState.setAvailableVehicle( availableVehicleLine1.getValue(), availableVehicleLine2.getValue(), availableVehicleLine3.getValue());
         vehicleState.setVehicleToVehicleDistance(vehicleToVehicleDistance.getValue().getText());
         vehicleState.setDensity(density.getValue().getText());
 
@@ -155,28 +148,3 @@ public class VehicleStateController implements Initializable {
 }
 
 
-@Data
-class VehicleGroup implements Comparable<VehicleGroup> {
-
-    JFXDatePicker datePicker;
-    JFXTimePicker timePicker;
-    Label count;
-
-    LocalDateTime date;
-
-    public VehicleGroup(JFXDatePicker datePicker, JFXTimePicker timePicker, String count) {
-        this.datePicker = datePicker;
-        this.timePicker = timePicker;
-        this.count = new Label(count);
-
-        date = LocalDateTime.of(datePicker.getValue(), timePicker.getValue());
-
-    }
-
-    @Override
-    public int compareTo(VehicleGroup o) {
-        boolean isBefore = this.date.isBefore(o.date);
-        if (isBefore) return -1;
-        else return 0;
-    }
-}

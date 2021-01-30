@@ -15,6 +15,7 @@ import services.TextFieldService;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 @Data
@@ -79,12 +80,10 @@ public class UnitController implements Initializable {
         initDistance();
         initAmmo();
 
-        posCount.setOnAction(e -> {
-            setPosVisibility();
-        });
+        posCount.setOnAction(e -> setPosVisibility());
     }
 
-    private void setPosVisibility(){
+    private void setPosVisibility() {
         int index = posCount.getSelectionModel().getSelectedIndex();
         determineActiveStatus(index);
     }
@@ -106,12 +105,11 @@ public class UnitController implements Initializable {
         if (typeOfStore.equals(IComboConstants.typeOfStore[0])) {
             this.eqptName.setText("Eqpt Name");
             ComboService.initComboBox(gunType, IComboConstants.gunType);
-            this.noOfGuns.setVisible( true );
-        }
-        else {
+            this.noOfGuns.setVisible(true);
+        } else {
             this.eqptName.setText("Type of Store");
-            ComboService.initComboBox(gunType, new String[] {typeOfStore});
-            this.noOfGuns.setVisible( false );
+            ComboService.initComboBox(gunType, new String[]{typeOfStore});
+            this.noOfGuns.setVisible(false);
         }
     }
 
@@ -119,8 +117,7 @@ public class UnitController implements Initializable {
 
         if (typeOfStore.equals(IComboConstants.typeOfStore[0])) {
             this.ammoLabel.setText("Ammo (" + ammunitionScale + ")");
-        }
-        else {
+        } else {
             this.ammoLabel.setText("No of 3 Ton Load");
         }
     }
@@ -211,49 +208,64 @@ public class UnitController implements Initializable {
         setAmmo(unit);
     }
 
-    private void setComboBoxes( Unit unit) {
+    private void setComboBoxes(Unit unit) {
 
-        ComboService.autoSelectComboBoxValue( unitName, unit.getUnitName());
-        ComboService.autoSelectComboBoxValue( gunType, unit.getGunType());
-        ComboService.autoSelectComboBoxValue( noOfGuns, String.valueOf( unit.getNoOfGuns() ) );
-        ComboService.autoSelectComboBoxValue( posCount, String.valueOf( unit.getPosCount()) );
+        ComboService.autoSelectComboBoxValue(unitName, unit.getUnitName());
+        ComboService.autoSelectComboBoxValue(gunType, unit.getGunType());
+        ComboService.autoSelectComboBoxValue(noOfGuns, String.valueOf(unit.getNoOfGuns()));
+        ComboService.autoSelectComboBoxValue(posCount, String.valueOf(unit.getPosCount()));
 
         setPosVisibility();
     }
 
-    private void setPosNames( Unit unit) {
+    private void setPosNames(Unit unit) {
         for (int i = 0; i < unit.getPositions().size(); i++) {
-            TextFieldService.initTextField(posnName.get(i), unit.getPositions().get(i).getPosName() );
+            TextFieldService.initTextField(posnName.get(i), unit.getPositions().get(i).getPosName());
         }
     }
 
-    private void setPriority( Unit unit ) {
+    private void setPriority(Unit unit) {
 
         for (int i = 0; i < unit.getPositions().size(); i++) {
-            ComboService.autoSelectComboBoxValue(priority.get(i), String.valueOf( unit.getPositions().get(i).getPriority() ) );
+            ComboService.autoSelectComboBoxValue(priority.get(i), String.valueOf(unit.getPositions().get(i).getPriority()));
         }
     }
 
-    private void setDistance( Unit unit ) {
+    private void setDistance(Unit unit) {
 
         for (int i = 0; i < unit.getPositions().size(); i++) {
             TextFieldService.initTextField(distance.get(i), String.valueOf(unit.getPositions().get(i).getDistance()));
         }
     }
 
-    private void setAmmo( Unit unit ) {
+    private void setAmmo(Unit unit) {
 
         for (int i = 0; i < unit.getPositions().size(); i++) {
 
-            System.out.println(unit.getPositions().get(i) instanceof ArtiPos);
+//            System.out.println(unit.getPositions().get(i) instanceof ArtiPos);
 
-            if( unit.getPositions().get(i) instanceof ArtiPos ) {
+            if (unit.getPositions().get(i) instanceof ArtiPos) {
                 ArtiPos temp = (ArtiPos) unit.getPositions().get(i);
-                TextFieldService.initTextField(ammo.get(i), String.valueOf( temp.getNoOfAmmo() ) );
-            }
-            else {
+                TextFieldService.initTextField(ammo.get(i), String.valueOf(temp.getNoOfAmmo()));
+            } else {
                 OtherPos temp = (OtherPos) unit.getPositions().get(i);
-                TextFieldService.initTextField(ammo.get(i), String.valueOf( temp.getNoOfThreeTon() ) );
+                TextFieldService.initTextField(ammo.get(i), String.valueOf(temp.getNoOfThreeTon()));
+            }
+        }
+    }
+
+
+    public void sort() {
+
+        for( int i=1; i <= Integer.parseInt(posCount.getValue().getText()); i++) {
+
+            int currentPriority = Integer.parseInt(priority.get(i-1).getValue().getText());
+
+            if( currentPriority <= Integer.parseInt(posCount.getValue().getText()) && (currentPriority-1) != (i-1) ) {
+                Collections.swap( posnName, currentPriority-1, i-1);
+                Collections.swap( priority, currentPriority-1, i-1);
+                Collections.swap( distance, currentPriority-1, i-1);
+                Collections.swap( ammo, currentPriority-1, i-1);
             }
         }
     }

@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<AnchorPane minHeight="700.0" minWidth="800.0" stylesheets="@common.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GenInfoController">
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="700.0" minWidth="800.0" stylesheets="@common.css"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controllers.GenInfoController">
     <children>
-        <GridPane alignment="CENTER" hgap="15.0" minHeight="-Infinity" minWidth="-Infinity" vgap="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+        <GridPane alignment="CENTER" hgap="15.0" minHeight="-Infinity" minWidth="-Infinity" vgap="15.0"
+                  AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
-                <ColumnConstraints hgrow="SOMETIMES" prefWidth="300.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" prefWidth="300.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Label styleClass="custom-label" text="Road Condition" GridPane.rowIndex="1" />
-                <Label styleClass="custom-label" text="Ammunition Scale" GridPane.rowIndex="3" />
-                <Label styleClass="custom-label" text="No of Unit" GridPane.rowIndex="4" />
-                <Label styleClass="custom-label" text="Loading Point" />
-                <Label styleClass="custom-label" text="Type of Store" GridPane.rowIndex="2" />
-                <Label styleClass="custom-label" text="Limitations/Contstraints" GridPane.rowIndex="5" />
-                <JFXComboBox fx:id="loadingPoint" prefWidth="300.0" GridPane.columnIndex="1" />
-                <JFXComboBox fx:id="roadCondition" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <JFXComboBox fx:id="typeOfStore" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <JFXComboBox fx:id="ammoScale" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <JFXComboBox fx:id="noOfUnit" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <JFXComboBox fx:id="limitations" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <JFXButton onAction="#next" styleClass="custom-button" text="Next" GridPane.rowIndex="6" />
+                <Label styleClass="custom-label" text="Road Condition" GridPane.rowIndex="1"/>
+                <Label styleClass="custom-label" text="Ammunition Scale" GridPane.rowIndex="3"/>
+                <Label styleClass="custom-label" text="No of Unit" GridPane.rowIndex="4"/>
+                <Label styleClass="custom-label" text="Loading Point"/>
+                <Label styleClass="custom-label" text="Type of Store" GridPane.rowIndex="2"/>
+                <Label styleClass="custom-label" text="Limitations/Contstraints" GridPane.rowIndex="5"/>
+                <JFXComboBox fx:id="loadingPoint" prefWidth="300.0" GridPane.columnIndex="1"/>
+                <JFXComboBox fx:id="roadCondition" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <JFXComboBox fx:id="typeOfStore" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <JFXComboBox fx:id="ammoScale" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <JFXComboBox fx:id="noOfUnit" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <JFXComboBox fx:id="limitations" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <JFXButton onAction="#next" styleClass="custom-button" text="Next" GridPane.rowIndex="6"/>
             </children>
         </GridPane>
     </children>

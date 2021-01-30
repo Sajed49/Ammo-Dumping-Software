@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TimeService {
 
@@ -41,7 +42,7 @@ public class TimeService {
 
         timePicker.set24HourView(true);
 
-        timePicker.setConverter(new StringConverter<LocalTime>() {
+        timePicker.setConverter(new StringConverter<>() {
 
             // create formatter Object
 
@@ -77,6 +78,12 @@ public class TimeService {
         LocalDateTime dateTime = LocalDateTime.of(datePicker.getValue(), timePicker.getValue());
         return dateTime.minus(Duration.ofHours(hours));
 
+    }
+
+    public static String getStringTimeFromDouble( Double hours ){
+
+        AtomicReference<Double> minutes = new AtomicReference<>(hours * 60.0);
+        return formatToDisplay( minutes.get().longValue() );
     }
 
 }

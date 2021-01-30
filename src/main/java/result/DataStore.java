@@ -5,6 +5,7 @@ import models.GenInfo;
 import models.TimeCal;
 import models.Unit;
 import models.VehicleState;
+import models.breakdown.Breakdown;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class DataStore {
     private TimeCal timeCal;
     private VehicleState vehicleState;
     private ArrayList<Unit> unitInfo = new ArrayList<>();
+    private ArrayList<Breakdown> breakdowns = new ArrayList<>();
 
     private DataStore() {
     }

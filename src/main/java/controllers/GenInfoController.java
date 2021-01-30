@@ -39,7 +39,7 @@ public class GenInfoController implements Initializable {
 
         if (DataStore.getInstance().getGenInfo() != null) loadFromDataStore();
 
-        typeOfStore.setOnAction( e -> {
+        typeOfStore.setOnAction(e -> {
             ammoScale.setVisible(typeOfStore.getValue().getText().equals(IComboConstants.typeOfStore[0]));
         });
     }

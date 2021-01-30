@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.calculation.TimeTableController">
+    <content>
+        <AnchorPane stylesheets="@common.css">
+            <children>
+                <VBox fx:id="vBox" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                    <children>
+                  <JFXButton fx:id="print" styleClass="custom-button" text="Print">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                        <GridPane gridLinesVisible="true" minWidth="1700.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="50.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="130.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="150.0" prefWidth="300.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label styleClass="custom-label" text="Ser" />
+                                <Label styleClass="custom-label" text="Events" GridPane.columnIndex="2" />
+                                <Label styleClass="custom-label" text="No of Vehicles" GridPane.columnIndex="3" />
+                                <Label styleClass="custom-label" text="Duration" GridPane.columnIndex="4" />
+                                <Label styleClass="custom-label" text="Distance Covered" GridPane.columnIndex="5" />
+                                <Label styleClass="custom-label" text="Distance Travelled" GridPane.columnIndex="6" />
+                                <Label styleClass="custom-label" text="Date &amp; Time" GridPane.columnIndex="1" />
+                        <Label styleClass="custom-label" text="Unit" GridPane.columnIndex="7" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" />
+                            </padding>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </content>
+</ScrollPane>

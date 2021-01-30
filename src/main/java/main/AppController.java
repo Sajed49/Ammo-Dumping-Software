@@ -5,6 +5,7 @@ import controllers.GenInfoController;
 import controllers.TimeCalController;
 import controllers.UnitInfoController;
 import controllers.VehicleStateController;
+import controllers.calculation.BreakdownInfoController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -24,10 +25,7 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
     }
-
 
     @FXML
     public void showGenInfo() throws IOException {
@@ -47,5 +45,10 @@ public class AppController implements Initializable {
     @FXML
     public void showUnitInfo() throws IOException {
         App.setRoot(new UnitInfoController(), "UnitInfo");
+    }
+
+    @FXML
+    public void showBreakdown() throws IOException {
+        App.setRoot(new BreakdownInfoController(), "BreakdownInfo");
     }
 }
