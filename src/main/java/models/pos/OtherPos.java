@@ -11,6 +11,6 @@ public class OtherPos extends Pos {
 
     public OtherPos(String posName, Integer priority, Double distance, Double noOfThreeTon) {
         super(posName, priority, distance);
-        this.noOfThreeTon = noOfThreeTon;
+        this.noOfThreeTon = Math.ceil(noOfThreeTon);
     }
 }

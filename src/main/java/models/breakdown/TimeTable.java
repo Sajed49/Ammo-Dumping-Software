@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class TimeTable {
 
     private String ser;
-    private String dateAndTime;
+    private LocalDateTime dateAndTime;
     private String event;
     private String noOfVehicles;
     private String duration;

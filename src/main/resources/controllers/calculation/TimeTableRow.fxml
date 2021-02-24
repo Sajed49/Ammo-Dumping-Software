@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane minWidth="1700.0" stylesheets="@common.css" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.calculation.TimeTableRowController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="20.0" prefWidth="50.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="20.0" prefWidth="130.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="300.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <padding>
+        <Insets bottom="10.0" top="20.0" />
+    </padding>
+    <Label fx:id="ser" styleClass="custom-label" text="Ser" />
+    <Label fx:id="dateAndTime" styleClass="custom-label" text="Date &amp; Time" GridPane.columnIndex="1" />
+    <Label fx:id="event" styleClass="custom-label" text="Events" GridPane.columnIndex="2" />
+    <Label fx:id="noOfVehicles" styleClass="custom-label" text="No Of Vehicles" GridPane.columnIndex="3" />
+    <Label fx:id="duration" styleClass="custom-label" text="Label" GridPane.columnIndex="4" />
+    <Label fx:id="distanceCovered" styleClass="custom-label" text="Label" GridPane.columnIndex="5" />
+    <Label fx:id="distanceTravelled" styleClass="custom-label" text="Label" GridPane.columnIndex="6" />
+   <Label fx:id="unitName" styleClass="custom-label" text="Label" GridPane.columnIndex="7" />
+</GridPane>

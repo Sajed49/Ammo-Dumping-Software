@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import lombok.Data;
+import models.breakdown.VehicleGroup;
 import services.ComboService;
 import services.DateService;
 import services.TimeService;
@@ -23,7 +24,6 @@ public class VehicleState {
     private List<String> availableVehicle = new ArrayList<>();
     private String vehicleToVehicleDistance;
     private String density;
-
 
     public void setAvailableDate(JFXDatePicker... dates) {
         availableDate = Arrays.stream(dates).map(DateService::display).collect(Collectors.toList());

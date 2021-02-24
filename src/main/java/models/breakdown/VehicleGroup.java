@@ -4,8 +4,12 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.scene.control.Label;
 import lombok.Data;
+import services.DateService;
+import services.TimeService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 @Data
@@ -26,6 +30,16 @@ class VehicleGroup implements Comparable<VehicleGroup> {
         date = LocalDateTime.of(datePicker.getValue(), timePicker.getValue());
 
     }
+
+    public VehicleGroup(String datePicker, String timePicker, String count) {
+        this.datePicker = new JFXDatePicker(LocalDate.parse( datePicker, DateService.dateFormatter));
+        this.timePicker = new JFXTimePicker(LocalTime.parse( timePicker, TimeService.formatter));
+        this.count = new Label(count);
+
+        date = LocalDateTime.of( this.datePicker.getValue(),  this.timePicker.getValue());
+
+    }
+
 
     @Override
     public int compareTo(VehicleGroup o) {

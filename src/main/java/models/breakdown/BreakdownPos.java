@@ -14,4 +14,5 @@ public class BreakdownPos {
     private String runTime;
     private String haltTime;
     private String passTime;
+    private Double distance;
 }

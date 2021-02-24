@@ -6,6 +6,7 @@ import controllers.TimeCalController;
 import controllers.UnitInfoController;
 import controllers.VehicleStateController;
 import controllers.calculation.BreakdownInfoController;
+import controllers.calculation.TimeTableController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -50,5 +51,10 @@ public class AppController implements Initializable {
     @FXML
     public void showBreakdown() throws IOException {
         App.setRoot(new BreakdownInfoController(), "BreakdownInfo");
+    }
+
+    @FXML
+    public void showTimeTable() throws IOException {
+        App.setRoot(new TimeTableController(), "TimeTable");
     }
 }

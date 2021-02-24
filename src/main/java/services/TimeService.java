@@ -86,4 +86,10 @@ public class TimeService {
         return formatToDisplay( minutes.get().longValue() );
     }
 
+    public static long getMinutesFromStringTime( String time ){
+
+        return (Integer.parseInt( time.split("\\s+")[0] ) * 60L)  + Integer.parseInt( time.split("\\s+")[2] ) ;
+
+    }
+
 }

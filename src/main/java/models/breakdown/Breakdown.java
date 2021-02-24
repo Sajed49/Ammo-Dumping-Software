@@ -65,6 +65,8 @@ public class Breakdown {
             breakdownPos.setRunTime( TimeService.getStringTimeFromDouble(runTime) );
             breakdownPos.setHaltTime( TimeService.getStringTimeFromDouble( findHaltTime(runTime)));
             breakdownPos.setPassTime( TimeService.getStringTimeFromDouble( findPassTime(breakdownPos.getVehicles()) ));
+            breakdownPos.setDistance( po.getDistance() );
+
             posArrayList.add( breakdownPos );
         }
     }
@@ -74,15 +76,20 @@ public class Breakdown {
 
 
         int index = Arrays.asList( IComboConstants.gunType ).indexOf( gunType );
+        double result = 0.0;
         //rpg
         if(DataStore.getInstance().getGenInfo().getAmmoScale().equalsIgnoreCase(IComboConstants.ammunitionScale[0])) {
-            return temp.getNoOfAmmo() * noOfGuns / IComboConstants.truckCapacity[index] ;
+
+            result = temp.getNoOfAmmo() * noOfGuns / IComboConstants.truckCapacity[index] ;
         }// 2nd line
-        else return (temp.getNoOfAmmo() * noOfGuns * IComboConstants.secondLineCount[index] ) / IComboConstants.truckCapacity[index];
+        else result = (temp.getNoOfAmmo() * noOfGuns * IComboConstants.secondLineCount[index] ) / IComboConstants.truckCapacity[index];
+
+        return Math.ceil( result );
     }
 
 
     private Double findRunTime(Pos temp) {
+
         int index = Arrays.asList( IComboConstants.road ).indexOf( DataStore.getInstance().getGenInfo().getRoadCondition() );
         Double distance = temp.getDistance();
         Double speed = findAverageSpeed(index);
@@ -131,6 +138,7 @@ public class Breakdown {
 
 
     private Double findPassTime( Double vehicle ) {
+        int index = Arrays.asList( IComboConstants.road ).indexOf( DataStore.getInstance().getGenInfo().getRoadCondition() );
 
         Double denominator = findAverageSpeed(index) * Integer.parseInt( DataStore.getInstance().getVehicleState().getDensity());
         if( denominator == 0 ) denominator = 1.0;

@@ -106,6 +106,7 @@ public class VehicleStateController implements Initializable {
 
         Collections.sort(sortedList);
 
+
         time1.setText(DateService.display(sortedList.get(0).getDatePicker()) + " - " + TimeService.display(sortedList.get(0).getTimePicker()));
         time2.setText(DateService.display(sortedList.get(1).getDatePicker()) + " - " + TimeService.display(sortedList.get(1).getTimePicker()));
         time3.setText(DateService.display(sortedList.get(2).getDatePicker()) + " - " + TimeService.display(sortedList.get(2).getTimePicker()));

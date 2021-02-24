@@ -55,7 +55,6 @@ public class BreakdownInfoController implements Initializable {
     private void loadDynamicHeaderLabels(Unit unit, int index) {
         Breakdown breakdown = new Breakdown( unit, index );
         BreakdownController controller = breakdownControllers.get(index);
-
         controller.setFromBreakdown( breakdown );
     }
 
