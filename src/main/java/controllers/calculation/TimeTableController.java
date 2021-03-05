@@ -1,5 +1,6 @@
 package controllers.calculation;
 
+import Constants.IComboConstants;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,6 @@ import javafx.scene.layout.VBox;
 import lombok.Builder;
 import lombok.Data;
 import lombok.SneakyThrows;
-import models.Unit;
 import models.breakdown.Breakdown;
 import models.breakdown.BreakdownPos;
 import models.breakdown.TimeTable;
@@ -19,7 +19,9 @@ import services.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class TimeTableController implements Initializable {
@@ -43,7 +45,9 @@ public class TimeTableController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadSavedData();
-        start();
+
+        if( DataStore.getInstance().getGenInfo().getLimitations().equals( IComboConstants.limitations[0] )) vehicleConstraintCalculation();
+        else timeConstraintCalculation();
         //addBreakdown();
 //        addBreakdown();
 //        addBreakdown();
@@ -77,8 +81,157 @@ public class TimeTableController implements Initializable {
 //         travelGroups.forEach(System.out::println);
     }
 
+    private void timeConstraintCalculation(){
 
-    private void start(){
+        int high = 1000;
+        int low = 0;
+
+        if( !isPossible(high) ) {
+            System.out.println("Not possible.");
+            return;
+        }
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            if (isPossible(mid)) {
+                high = mid;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+
+        System.out.println( low );
+        timeConstraintCalculation(low);
+    }
+
+
+    private Boolean isPossible(int vehicleCount ){
+
+        PriorityQueue<TripReturn> myQueue = new PriorityQueue<>();
+        int idleVehicle = vehicleCount;
+        Long loadingTime = Integer.parseInt(DataStore.getInstance().getTimeCal().getTimeReqToLoad()) * 60L;
+        Long unLoadingTime = Integer.parseInt(DataStore.getInstance().getTimeCal().getTimeReqToUnload()) * 60L;
+
+        currentTime =  LocalDateTime.of(LocalDate.parse(DataStore.getInstance().getTimeCal().getDumpingStartDate(), DateService.dateFormatter),
+                LocalTime.parse( DataStore.getInstance().getTimeCal().getDumpingStartTime(), TimeService.formatter) );
+
+        ArrayList<TimeTable> results = new ArrayList<>();
+
+        for (TravelGroup travelGroup : travelGroups) {
+
+            int requiredVehicle = travelGroup.getPos().getVehicles().intValue();
+
+            if( requiredVehicle == 0) continue; // no vehicles required
+            else if( requiredVehicle > idleVehicle && myQueue.isEmpty() ){
+                return false; // not possible case vehicle shortage
+            }
+            else {
+                //System.out.println( travelGroup.getPos().getPosName() );
+                //System.out.println( requiredVehicle+" "+idleVehicle+" "+myQueue.size());
+                Long oneWayTripTime = getOneWayTripTime( travelGroup.getPos() );
+                Long duration = loadingTime + (oneWayTripTime*2) + unLoadingTime;
+
+                while(  requiredVehicle > idleVehicle ) {
+
+                    if( myQueue.isEmpty()) break;
+                    idleVehicle += myQueue.peek().getVehicleCount();
+                    currentTime = myQueue.peek().getDateTime();
+                    myQueue.poll();
+                }
+
+                if( requiredVehicle > idleVehicle && myQueue.isEmpty() ){
+                    return false; // not possible case vehicle shortage
+                }
+
+                myQueue.add( TripReturn.builder().dateTime( DateTimeService.addMinutesToDateTime(currentTime, duration) )
+                        .vehicleCount( requiredVehicle ).build() ); // comeback time
+                idleVehicle = idleVehicle - requiredVehicle;
+                results.addAll( getRoundTripInfo(travelGroup, loadingTime, unLoadingTime));
+            }
+
+
+        }
+
+        Collections.sort( results, Comparator.comparing(TimeTable::getDateAndTime));
+
+        LocalDateTime finishTime = LocalDateTime.of(LocalDate.parse(DataStore.getInstance().getTimeCal().getDumpingEndDate(), DateService.dateFormatter),
+                LocalTime.parse( DataStore.getInstance().getTimeCal().getDumpingEndTime(), TimeService.formatter) );
+
+        if( results.size() == 0 ) return true;
+        if( results.get( results.size() - 1).getDateAndTime().isAfter(finishTime ) ) return false;
+        else return true;
+
+    }
+
+
+    private void timeConstraintCalculation(int vehicleCount){
+
+        PriorityQueue<TripReturn> myQueue = new PriorityQueue<>();
+        int idleVehicle = vehicleCount;
+        Long loadingTime = Integer.parseInt(DataStore.getInstance().getTimeCal().getTimeReqToLoad()) * 60L;
+        Long unLoadingTime = Integer.parseInt(DataStore.getInstance().getTimeCal().getTimeReqToUnload()) * 60L;
+
+        currentTime =  LocalDateTime.of(LocalDate.parse(DataStore.getInstance().getTimeCal().getDumpingStartDate(), DateService.dateFormatter),
+                LocalTime.parse( DataStore.getInstance().getTimeCal().getDumpingStartTime(), TimeService.formatter) );
+
+        ArrayList<TimeTable> results = new ArrayList<>();
+
+        for (TravelGroup travelGroup : travelGroups) {
+
+            int requiredVehicle = travelGroup.getPos().getVehicles().intValue();
+
+            if( requiredVehicle == 0) continue; // no vehicles required
+            else if( requiredVehicle > idleVehicle && myQueue.isEmpty() ){
+                return;// not possible case vehicle shortage
+            }
+            else {
+                //System.out.println( travelGroup.getPos().getPosName() );
+                //System.out.println( requiredVehicle+" "+idleVehicle+" "+myQueue.size());
+                Long oneWayTripTime = getOneWayTripTime( travelGroup.getPos() );
+                Long duration = loadingTime + (oneWayTripTime*2) + unLoadingTime;
+
+                while(  requiredVehicle > idleVehicle ) {
+
+                    if( myQueue.isEmpty()) break;
+                    idleVehicle += myQueue.peek().getVehicleCount();
+                    currentTime = myQueue.peek().getDateTime();
+                    myQueue.poll();
+                }
+
+                if( requiredVehicle > idleVehicle && myQueue.isEmpty() ){
+                    return; // not possible case vehicle shortage
+                }
+
+                myQueue.add( TripReturn.builder().dateTime( DateTimeService.addMinutesToDateTime(currentTime, duration) )
+                        .vehicleCount( requiredVehicle ).build() ); // comeback time
+                idleVehicle = idleVehicle - requiredVehicle;
+                results.addAll( getRoundTripInfo(travelGroup, loadingTime, unLoadingTime));
+            }
+
+
+        }
+
+        Collections.sort( results, Comparator.comparing(TimeTable::getDateAndTime));
+
+        LocalDateTime finishTime = LocalDateTime.of(LocalDate.parse(DataStore.getInstance().getTimeCal().getDumpingEndDate(), DateService.dateFormatter),
+                LocalTime.parse( DataStore.getInstance().getTimeCal().getDumpingEndTime(), TimeService.formatter) );
+
+        if( results.size() == 0 ) return;
+        else if( results.get( results.size() - 1).getDateAndTime().isAfter(finishTime ) ) return;
+        else {
+            for( TimeTable timeTable: results ) {
+//            System.out.println( timeTable );
+                addBreakdown();
+                int i = rowControllers.size() - 1;
+                rowControllers.get(i).setTimeTable( timeTable );
+            }
+
+        }
+
+    }
+
+    private void vehicleConstraintCalculation(){
 
         PriorityQueue<TripReturn> myQueue = new PriorityQueue<>();
         int vehicleGroupIndex = 0;
@@ -109,8 +262,8 @@ public class TimeTableController implements Initializable {
                 break; // not possible case vehicle shortage
             }
             else {
-                System.out.println( travelGroup.getPos().getPosName() );
-                System.out.println( requiredVehicle+" "+idleVehicle+" "+myQueue.size());
+                //System.out.println( travelGroup.getPos().getPosName() );
+                //System.out.println( requiredVehicle+" "+idleVehicle+" "+myQueue.size());
                 Long oneWayTripTime = getOneWayTripTime( travelGroup.getPos() );
                 Long duration = loadingTime + (oneWayTripTime*2) + unLoadingTime;
 
@@ -160,18 +313,18 @@ public class TimeTableController implements Initializable {
 
         results.add( TimeTable.builder().dateAndTime( DateTimeService.addMinutesToDateTime(currentTime, loadingTime) ).event("From "+ pos.getPosName() +" to Dumping")
                 .noOfVehicles( String.valueOf(pos.getVehicles()) ).
-                duration( String.valueOf(oneTripRunTime)).distanceCovered( String.valueOf(pos.getDistance()) ).unitName( unitName ).build() );
+                duration( TimeService.formatToDisplay(oneTripRunTime)).distanceCovered( String.valueOf(pos.getDistance()) ).unitName( unitName ).build() );
 
         results.add( TimeTable.builder().dateAndTime( DateTimeService.addMinutesToDateTime(currentTime, loadingTime + oneTripRunTime) ).event("Unloading").noOfVehicles( String.valueOf(pos.getVehicles()) ).
                 duration( TimeService.formatToDisplay(loadingTime) ).unitName( unitName ).build() );
 
         results.add( TimeTable.builder().dateAndTime( DateTimeService.addMinutesToDateTime(currentTime, loadingTime + oneTripRunTime + unloadingTime) ).event("Returning From Dumping")
                 .noOfVehicles( String.valueOf(pos.getVehicles()) ).
-                duration( String.valueOf(oneTripRunTime)).distanceCovered( String.valueOf(pos.getDistance()) ).unitName( unitName ).build() );
+                duration( TimeService.formatToDisplay(oneTripRunTime)).distanceCovered( String.valueOf(pos.getDistance()) ).unitName( unitName ).build() );
 
         results.add( TimeTable.builder().dateAndTime( DateTimeService.addMinutesToDateTime(currentTime, loadingTime + (oneTripRunTime*2) + unloadingTime) ).event("Returned From Dumping")
                 .noOfVehicles( String.valueOf(pos.getVehicles()) ).
-                duration( String.valueOf(oneTripRunTime)).unitName( unitName ).build() );
+                duration(TimeService.formatToDisplay(oneTripRunTime)).unitName( unitName ).build() );
 
         return results;
     }
