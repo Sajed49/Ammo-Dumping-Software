@@ -257,15 +257,15 @@ public class UnitController implements Initializable {
 
     public void sort() {
 
-        for( int i=1; i <= Integer.parseInt(posCount.getValue().getText()); i++) {
+        for (int i = 1; i <= Integer.parseInt(posCount.getValue().getText()); i++) {
 
-            int currentPriority = Integer.parseInt(priority.get(i-1).getValue().getText());
+            int currentPriority = Integer.parseInt(priority.get(i - 1).getValue().getText());
 
-            if( currentPriority <= Integer.parseInt(posCount.getValue().getText()) && (currentPriority-1) != (i-1) ) {
-                Collections.swap( posnName, currentPriority-1, i-1);
-                Collections.swap( priority, currentPriority-1, i-1);
-                Collections.swap( distance, currentPriority-1, i-1);
-                Collections.swap( ammo, currentPriority-1, i-1);
+            if (currentPriority <= Integer.parseInt(posCount.getValue().getText()) && (currentPriority - 1) != (i - 1)) {
+                Collections.swap(posnName, currentPriority - 1, i - 1);
+                Collections.swap(priority, currentPriority - 1, i - 1);
+                Collections.swap(distance, currentPriority - 1, i - 1);
+                Collections.swap(ammo, currentPriority - 1, i - 1);
             }
         }
     }

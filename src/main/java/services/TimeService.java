@@ -80,15 +80,15 @@ public class TimeService {
 
     }
 
-    public static String getStringTimeFromDouble( Double hours ){
+    public static String getStringTimeFromDouble(Double hours) {
 
         AtomicReference<Double> minutes = new AtomicReference<>(hours * 60.0);
-        return formatToDisplay( minutes.get().longValue() );
+        return formatToDisplay(minutes.get().longValue());
     }
 
-    public static long getMinutesFromStringTime( String time ){
+    public static long getMinutesFromStringTime(String time) {
 
-        return (Integer.parseInt( time.split("\\s+")[0] ) * 60L)  + Integer.parseInt( time.split("\\s+")[2] ) ;
+        return (Integer.parseInt(time.split("\\s+")[0]) * 60L) + Integer.parseInt(time.split("\\s+")[2]);
 
     }
 

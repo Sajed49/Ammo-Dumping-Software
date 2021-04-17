@@ -123,25 +123,25 @@ public class BreakdownController implements Initializable {
         }
     }
 
-    public void setFromBreakdown(Breakdown breakdown){
+    public void setFromBreakdown(Breakdown breakdown) {
 
         this.breakdown = breakdown;
 
-        ser.setText( breakdown.getLabelSer() );
-        eqptName.setText( breakdown.getLabelEqptName() );
-        unitName.setText( breakdown.getUnitName());
-        gunType.setText( breakdown.getGunType());
+        ser.setText(breakdown.getLabelSer());
+        eqptName.setText(breakdown.getLabelEqptName());
+        unitName.setText(breakdown.getUnitName());
+        gunType.setText(breakdown.getGunType());
         noOfGuns.setText(String.valueOf(breakdown.getNoOfGuns()));
         posCount.setText(String.valueOf(breakdown.getPosCount()));
 
 
         for (int i = 0; i < breakdown.getPosArrayList().size(); i++) {
 
-            positions.get(i).setText( breakdown.getPosArrayList().get(i).getPosName());
+            positions.get(i).setText(breakdown.getPosArrayList().get(i).getPosName());
             vehicles.get(i).setText(String.valueOf(breakdown.getPosArrayList().get(i).getVehicles()));
-            runTime.get(i).setText( breakdown.getPosArrayList().get(i).getRunTime());
-            haltTime.get(i).setText( breakdown.getPosArrayList().get(i).getHaltTime() );
-            passTime.get(i).setText( breakdown.getPosArrayList().get(i).getPassTime() );
+            runTime.get(i).setText(breakdown.getPosArrayList().get(i).getRunTime());
+            haltTime.get(i).setText(breakdown.getPosArrayList().get(i).getHaltTime());
+            passTime.get(i).setText(breakdown.getPosArrayList().get(i).getPassTime());
         }
     }
 }

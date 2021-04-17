@@ -111,9 +111,9 @@ public class VehicleStateController implements Initializable {
         time2.setText(DateService.display(sortedList.get(1).getDatePicker()) + " - " + TimeService.display(sortedList.get(1).getTimePicker()));
         time3.setText(DateService.display(sortedList.get(2).getDatePicker()) + " - " + TimeService.display(sortedList.get(2).getTimePicker()));
 
-        totalAvailableVehicles1.setText(String.valueOf(VehicleGroup.getTotalCount( sortedList, 0)));
-        totalAvailableVehicles2.setText(String.valueOf(VehicleGroup.getTotalCount( sortedList, 1)));
-        totalAvailableVehicles3.setText(String.valueOf(VehicleGroup.getTotalCount( sortedList, 2)));
+        totalAvailableVehicles1.setText(String.valueOf(VehicleGroup.getTotalCount(sortedList, 0)));
+        totalAvailableVehicles2.setText(String.valueOf(VehicleGroup.getTotalCount(sortedList, 1)));
+        totalAvailableVehicles3.setText(String.valueOf(VehicleGroup.getTotalCount(sortedList, 2)));
     }
 
 
@@ -125,7 +125,7 @@ public class VehicleStateController implements Initializable {
         VehicleState vehicleState = new VehicleState();
         vehicleState.setAvailableDate(availableDateLine1, availableDateLine2, availableDateLine3);
         vehicleState.setAvailableTime(availableTimeLine1, availableTimeLine2, availableTimeLine3);
-        vehicleState.setAvailableVehicle( availableVehicleLine1.getValue(), availableVehicleLine2.getValue(), availableVehicleLine3.getValue());
+        vehicleState.setAvailableVehicle(availableVehicleLine1.getValue(), availableVehicleLine2.getValue(), availableVehicleLine3.getValue());
         vehicleState.setVehicleToVehicleDistance(vehicleToVehicleDistance.getValue().getText());
         vehicleState.setDensity(density.getValue().getText());
 

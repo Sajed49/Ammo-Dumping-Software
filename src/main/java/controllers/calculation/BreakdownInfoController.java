@@ -1,7 +1,6 @@
 package controllers.calculation;
 
 import com.jfoenix.controls.JFXButton;
-import controllers.UnitController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,9 +52,9 @@ public class BreakdownInfoController implements Initializable {
 
 
     private void loadDynamicHeaderLabels(Unit unit, int index) {
-        Breakdown breakdown = new Breakdown( unit, index );
+        Breakdown breakdown = new Breakdown(unit, index);
         BreakdownController controller = breakdownControllers.get(index);
-        controller.setFromBreakdown( breakdown );
+        controller.setFromBreakdown(breakdown);
     }
 
 
@@ -78,7 +77,7 @@ public class BreakdownInfoController implements Initializable {
 
         for (BreakdownController breakdownController : breakdownControllers) {
 
-            DataStore.getInstance().getBreakdowns().add( breakdownController.getBreakdown() );
+            DataStore.getInstance().getBreakdowns().add(breakdownController.getBreakdown());
         }
         App.setRoot(new TimeTableController(), "TimeTable");
     }

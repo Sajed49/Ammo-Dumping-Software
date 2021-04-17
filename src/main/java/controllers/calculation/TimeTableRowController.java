@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 public class TimeTableRowController implements Initializable {
 
+    TimeTable timeTable;
     @FXML
     private Label ser;
     @FXML
@@ -28,8 +29,6 @@ public class TimeTableRowController implements Initializable {
     @FXML
     private Label unitName;
 
-    TimeTable timeTable;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -38,14 +37,14 @@ public class TimeTableRowController implements Initializable {
     public void setTimeTable(TimeTable timeTable) {
         this.timeTable = timeTable;
 
-        this.ser.setText( timeTable.getSer() );
-        this.dateAndTime.setText(DateTimeService.display( timeTable.getDateAndTime() ) );
-        this.noOfVehicles.setText( timeTable.getNoOfVehicles() );
-        this.unitName.setText( timeTable.getUnitName() );
+        this.ser.setText(timeTable.getSer());
+        this.dateAndTime.setText(DateTimeService.display(timeTable.getDateAndTime()));
+        this.noOfVehicles.setText(timeTable.getNoOfVehicles());
+        this.unitName.setText(timeTable.getUnitName());
 
-        this.event.setText( timeTable.getEvent());
-        this.duration.setText( timeTable.getDuration());
-        this.distanceCovered.setText( timeTable.getDistanceCovered() );
+        this.event.setText(timeTable.getEvent());
+        this.duration.setText(timeTable.getDuration());
+        this.distanceCovered.setText(timeTable.getDistanceCovered());
     }
 
 

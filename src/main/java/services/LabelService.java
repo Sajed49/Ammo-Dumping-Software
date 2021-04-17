@@ -8,7 +8,7 @@ public class LabelService {
         label.setText(value);
     }
 
-    public static Label initLabel( String value) {
+    public static Label initLabel(String value) {
         return new Label(value);
     }
 }

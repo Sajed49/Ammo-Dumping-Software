@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXTimePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import lombok.Data;
-import models.breakdown.VehicleGroup;
 import services.ComboService;
 import services.DateService;
 import services.TimeService;

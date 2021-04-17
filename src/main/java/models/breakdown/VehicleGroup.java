@@ -32,28 +32,27 @@ class VehicleGroup implements Comparable<VehicleGroup> {
     }
 
     public VehicleGroup(String datePicker, String timePicker, String count) {
-        this.datePicker = new JFXDatePicker(LocalDate.parse( datePicker, DateService.dateFormatter));
-        this.timePicker = new JFXTimePicker(LocalTime.parse( timePicker, TimeService.formatter));
+        this.datePicker = new JFXDatePicker(LocalDate.parse(datePicker, DateService.dateFormatter));
+        this.timePicker = new JFXTimePicker(LocalTime.parse(timePicker, TimeService.formatter));
         this.count = new Label(count);
 
-        date = LocalDateTime.of( this.datePicker.getValue(),  this.timePicker.getValue());
+        date = LocalDateTime.of(this.datePicker.getValue(), this.timePicker.getValue());
 
     }
 
+    public static int getTotalCount(ArrayList<VehicleGroup> vehicleGroups, int lastIndex) {
+
+        int count = 0;
+        for (int i = 0; i < vehicleGroups.size() && i <= lastIndex; i++) {
+            count += Integer.parseInt(vehicleGroups.get(i).getCount().getText());
+        }
+        return count;
+    }
 
     @Override
     public int compareTo(VehicleGroup o) {
         boolean isBefore = this.date.isBefore(o.date);
         if (isBefore) return -1;
         else return 0;
-    }
-
-    public static int getTotalCount(ArrayList <VehicleGroup> vehicleGroups, int lastIndex){
-
-        int count = 0;
-        for(int i=0; i<vehicleGroups.size() && i<= lastIndex; i++) {
-            count += Integer.parseInt(vehicleGroups.get(i).getCount().getText());
-        }
-        return count;
     }
 }
